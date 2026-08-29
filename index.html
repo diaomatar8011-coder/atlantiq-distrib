@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Atlantiq'Distrib — Distribution automatique premium à Nantes</title>
+<meta name="description" content="Atlantiq'Distrib conçoit des solutions de distribution automatique premium — boissons fraîches et snacks — pour les entreprises, les établissements de santé, les campus et le CROUS de Nantes Métropole.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<!-- LOADER -->
+<div id="loader">
+  <div class="loader-brand">Atlantiq<span class="loader-apostrophe">'</span>Distrib</div>
+  <div id="loader-bar-track"><div id="loader-bar"></div></div>
+  <div id="loader-percent">0%</div>
+</div>
+
+<!-- FIXED HEADER -->
+<header class="site-header">
+  <nav>
+    <a href="#top" class="logo" data-target="hero">
+      <span class="logo-mark" aria-hidden="true">
+        <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M20,68 C8,50 12,25 35,14 C55,5 78,12 88,32" stroke="#5BAEDD" stroke-width="9" stroke-linecap="round" fill="none"/>
+          <path d="M48,17 L19,81 Q34,67 48,53 Q61,67 75,57 Z" fill="#2E7BAE"/>
+          <circle cx="80" cy="35" r="9" fill="#F5941F"/>
+          <path d="M14,79 Q35,58 55,72 Q71,83 91,62" stroke="#F5941F" stroke-width="11" stroke-linecap="round" fill="none"/>
+          <path d="M24,89 Q45,72 65,85 Q79,93 92,78" stroke="#5BAEDD" stroke-width="6" stroke-linecap="round" fill="none"/>
+        </svg>
+      </span>
+      <span class="logo-word">Atlantiq<span class="logo-apostrophe">'</span>Distrib</span>
+    </a>
+    <ul class="nav-links">
+      <li class="has-submenu">
+        <a href="#produit" data-target="produit">Le produit <span class="nav-chevron" aria-hidden="true">⌄</span></a>
+        <div class="nav-submenu"><div class="nav-submenu-inner">
+          <a href="#produit" data-target="produit">Boissons fraîches</a>
+          <a href="#produit" data-target="produit">Snacking</a>
+          <a href="#produit" data-target="produit">Café &amp; boissons chaudes</a>
+        </div></div>
+      </li>
+      <li class="has-submenu">
+        <a href="#marches" data-target="marches">Nos marchés <span class="nav-chevron" aria-hidden="true">⌄</span></a>
+        <div class="nav-submenu"><div class="nav-submenu-inner">
+          <a href="#marches" data-target="marches">Entreprises</a>
+          <a href="#marches" data-target="marches">Santé — CHU</a>
+          <a href="#marches" data-target="marches">Campus universitaire</a>
+          <a href="#marches" data-target="marches">CROUS</a>
+        </div></div>
+      </li>
+      <li class="has-submenu">
+        <a href="#pourquoi" data-target="pourquoi">Pourquoi nous <span class="nav-chevron" aria-hidden="true">⌄</span></a>
+        <div class="nav-submenu"><div class="nav-submenu-inner">
+          <a href="#pourquoi" data-target="pourquoi">Marché &amp; fiabilité</a>
+          <a href="#pourquoi" data-target="pourquoi">Paiement sans contact</a>
+          <a href="#pourquoi" data-target="pourquoi">Maintenance réactive</a>
+        </div></div>
+      </li>
+      <li class="has-submenu">
+        <a href="#modeles" data-target="modeles">Nos modèles <span class="nav-chevron" aria-hidden="true">⌄</span></a>
+        <div class="nav-submenu"><div class="nav-submenu-inner">
+          <a href="#modeles" data-target="modeles">Combiné boissons &amp; snacks</a>
+          <a href="#modeles" data-target="modeles">Vitrine boissons fraîches</a>
+          <a href="#modeles" data-target="modeles">Café &amp; boissons chaudes</a>
+        </div></div>
+      </li>
+      <li class="has-submenu">
+        <a href="#distributeur" data-target="distributeur">Le distributeur <span class="nav-chevron" aria-hidden="true">⌄</span></a>
+        <div class="nav-submenu"><div class="nav-submenu-inner">
+          <a href="#distributeur" data-target="distributeur">Paiement sans contact</a>
+          <a href="#distributeur" data-target="distributeur">Écran tactile</a>
+          <a href="#distributeur" data-target="distributeur">Stockage &amp; réassort</a>
+        </div></div>
+      </li>
+    </ul>
+    <a href="#contact" class="nav-cta" data-target="contact">Demander un devis</a>
+    <button class="nav-burger" id="nav-burger" aria-label="Ouvrir le menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+</header>
+<div class="nav-backdrop" id="nav-backdrop"></div>
+<aside class="nav-mobile" id="nav-mobile" aria-hidden="true">
+  <nav class="nav-mobile-links">
+    <div class="nav-mobile-item">
+      <div class="nav-mobile-row">
+        <a href="#produit" data-target="produit">Le produit</a>
+        <button class="nav-mobile-chevron" aria-expanded="false" aria-controls="sub-produit" aria-label="Sous-menu Le produit">
+          <svg viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+      </div>
+      <div class="nav-mobile-submenu" id="sub-produit"><div class="nav-mobile-submenu-inner">
+        <a href="#produit" data-target="produit">Boissons fraîches</a>
+        <a href="#produit" data-target="produit">Snacking</a>
+        <a href="#produit" data-target="produit">Café &amp; boissons chaudes</a>
+      </div></div>
+    </div>
+    <div class="nav-mobile-item">
+      <div class="nav-mobile-row">
+        <a href="#marches" data-target="marches">Nos marchés</a>
+        <button class="nav-mobile-chevron" aria-expanded="false" aria-controls="sub-marches" aria-label="Sous-menu Nos marchés">
+          <svg viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+      </div>
+      <div class="nav-mobile-submenu" id="sub-marches"><div class="nav-mobile-submenu-inner">
+        <a href="#marches" data-target="marches">Entreprises</a>
+        <a href="#marches" data-target="marches">Santé — CHU</a>
+        <a href="#marches" data-target="marches">Campus universitaire</a>
+        <a href="#marches" data-target="marches">CROUS</a>
+      </div></div>
+    </div>
+    <div class="nav-mobile-item">
+      <div class="nav-mobile-row">
+        <a href="#pourquoi" data-target="pourquoi">Pourquoi nous</a>
+        <button class="nav-mobile-chevron" aria-expanded="false" aria-controls="sub-pourquoi" aria-label="Sous-menu Pourquoi nous">
+          <svg viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+      </div>
+      <div class="nav-mobile-submenu" id="sub-pourquoi"><div class="nav-mobile-submenu-inner">
+        <a href="#pourquoi" data-target="pourquoi">Marché &amp; fiabilité</a>
+        <a href="#pourquoi" data-target="pourquoi">Paiement sans contact</a>
+        <a href="#pourquoi" data-target="pourquoi">Maintenance réactive</a>
+      </div></div>
+    </div>
+    <div class="nav-mobile-item">
+      <div class="nav-mobile-row">
+        <a href="#modeles" data-target="modeles">Nos modèles</a>
+        <button class="nav-mobile-chevron" aria-expanded="false" aria-controls="sub-modeles" aria-label="Sous-menu Nos modèles">
+          <svg viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+      </div>
+      <div class="nav-mobile-submenu" id="sub-modeles"><div class="nav-mobile-submenu-inner">
+        <a href="#modeles" data-target="modeles">Combiné boissons &amp; snacks</a>
+        <a href="#modeles" data-target="modeles">Vitrine boissons fraîches</a>
+        <a href="#modeles" data-target="modeles">Café &amp; boissons chaudes</a>
+      </div></div>
+    </div>
+    <div class="nav-mobile-item">
+      <div class="nav-mobile-row">
+        <a href="#distributeur" data-target="distributeur">Le distributeur</a>
+        <button class="nav-mobile-chevron" aria-expanded="false" aria-controls="sub-distributeur" aria-label="Sous-menu Le distributeur">
+          <svg viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+      </div>
+      <div class="nav-mobile-submenu" id="sub-distributeur"><div class="nav-mobile-submenu-inner">
+        <a href="#distributeur" data-target="distributeur">Paiement sans contact</a>
+        <a href="#distributeur" data-target="distributeur">Écran tactile</a>
+        <a href="#distributeur" data-target="distributeur">Stockage &amp; réassort</a>
+      </div></div>
+    </div>
+  </nav>
+  <a href="#contact" class="nav-mobile-cta" data-target="contact">Demander un devis</a>
+  <div class="nav-mobile-socials">
+    <a href="#" aria-label="Instagram">
+      <svg viewBox="0 0 24 24" fill="none"><rect x="3" y="3" width="18" height="18" rx="5" stroke="currentColor" stroke-width="1.6"/><circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="1.6"/><circle cx="17.2" cy="6.8" r="1.1" fill="currentColor"/></svg>
+    </a>
+    <a href="#" aria-label="Facebook">
+      <svg viewBox="0 0 24 24" fill="none"><path d="M14 21v-7h2.5l.5-3H14V9c0-1 .3-1.7 1.7-1.7H17V4.6C16.7 4.6 15.7 4.5 14.6 4.5c-2.3 0-3.9 1.4-3.9 4V11H8v3h2.7v7h3.3Z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/></svg>
+    </a>
+    <a href="#" aria-label="TikTok">
+      <svg viewBox="0 0 24 24" fill="none"><path d="M15 4v9.5a3.2 3.2 0 1 1-2.6-3.15" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><path d="M15 4c.3 2.2 1.9 3.8 4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+    </a>
+    <a href="#" aria-label="LinkedIn">
+      <svg viewBox="0 0 24 24" fill="none"><rect x="3" y="3" width="18" height="18" rx="3" stroke="currentColor" stroke-width="1.6"/><circle cx="8" cy="8.5" r="1.2" fill="currentColor"/><path d="M8 11.5v6M12 11.5v6M12 14c0-1.5 1-2.5 2.3-2.5S16.5 12.5 16.5 14v3.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+    </a>
+  </div>
+</aside>
+
+<!-- HERO -->
+<section class="hero-standalone" id="top">
+  <video class="hero-video" autoplay muted loop playsinline preload="auto">
+    <source src="distri.mp4" type="video/mp4">
+  </video>
+  <div class="hero-scrim"></div>
+  <div class="hero-inner">
+    <span class="section-label hero-label">Atlantiq'Distrib — Nantes</span>
+    <h1 class="hero-heading">
+      <span class="line"><span class="word">Votre</span> <span class="word">pause,</span></span>
+      <span class="line"><span class="word">à</span> <span class="word">tout</span> <span class="word">moment.</span></span>
+    </h1>
+    <p class="hero-tagline">Distribution automatique premium de boissons fraîches et de snacks — pensée pour les entreprises, la santé et le monde étudiant de Nantes Métropole.</p>
+    <div class="hero-actions">
+      <a href="#contact" class="btn btn-primary" data-target="contact">Demander un devis</a>
+      <a href="#produit" class="btn btn-ghost" data-target="produit">Découvrir l'offre</a>
+    </div>
+  </div>
+  <div class="scroll-indicator">
+    <span>Faites défiler</span>
+    <svg width="14" height="22" viewBox="0 0 14 22" fill="none"><path d="M7 1V21M7 21L1 15M7 21L13 15" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  </div>
+</section>
+
+<!-- CANVAS (video scrub, fixed) -->
+<div class="canvas-wrap" id="canvas-wrap">
+  <canvas id="canvas"></canvas>
+  <video id="scrub-video" muted playsinline preload="auto" style="display:none;">
+    <source src="distri.mp4" type="video/mp4">
+  </video>
+</div>
+
+<!-- DARK OVERLAY -->
+<div id="dark-overlay"></div>
+<div id="dark-overlay-soft"></div>
+<div id="dark-overlay-soft-2"></div>
+
+<!-- MARQUEE -->
+<div class="marquee-wrap" id="marquee-1">
+  <div class="marquee-text">Sans sucre ajouté&nbsp;&middot;&nbsp;Choix responsable&nbsp;&middot;&nbsp;Sans sucre ajouté&nbsp;&middot;&nbsp;Choix responsable&nbsp;&middot;&nbsp;</div>
+</div>
+
+<!-- SCROLL CONTAINER -->
+<div id="scroll-container">
+
+  <!-- 001 / Le produit -->
+  <section class="scroll-section section-content align-left" id="produit"
+           data-enter="6" data-leave="17" data-animation="slide-left">
+    <div class="section-inner">
+      <span class="section-label">001 / L'offre</span>
+      <h2 class="section-heading">Une sélection pensée,<br>pas seulement distribuée.</h2>
+      <p class="section-body">Boissons fraîches — sodas, eaux, energy drinks —, boissons chaudes — café, thé, chocolat — et snacking — chips, confiseries — choisis pour répondre aux attentes de vos équipes et de vos visiteurs, avec un renouvellement régulier de l'assortiment.</p>
+      <p class="section-note">Notre gamme évolue vers une part croissante de produits sans sucre ajouté, un positionnement responsable qui anticipe la fiscalité comportementale sur les boissons sucrées.</p>
+      <div class="product-tags">
+        <span>Sodas</span><span>Eaux</span><span>Energy drinks</span><span>Café</span><span>Chips</span><span>Confiseries</span>
+      </div>
+    </div>
+    <div class="product-visual">
+      <figure class="product-visual-plaque">
+        <img src="images/product-soda.jpg" alt="Sodas, eaux et boissons fraîches" loading="lazy">
+        <figcaption>
+          <span class="product-visual-label">Boissons fraîches</span>
+          <span class="product-visual-sub">Sodas · Eaux · Energy drinks</span>
+        </figcaption>
+      </figure>
+      <figure class="product-visual-plaque">
+        <img src="images/product-snack.jpg" alt="Chocolats, confiseries et barres de céréales" loading="lazy">
+        <figcaption>
+          <span class="product-visual-label">Snacking</span>
+          <span class="product-visual-sub">Chips · Confiseries</span>
+        </figcaption>
+      </figure>
+      <figure class="product-visual-plaque">
+        <img src="images/product-coffee.jpg" alt="Café et boissons chaudes" loading="lazy">
+        <figcaption>
+          <span class="product-visual-label">Café &amp; boissons chaudes</span>
+          <span class="product-visual-sub">Café · Thé · Chocolat</span>
+        </figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- 002 / Nos marchés (full-width block grid) -->
+  <section class="scroll-section section-markets align-center" id="marches"
+           data-enter="21" data-leave="34" data-animation="stagger-up">
+    <div class="section-inner markets-inner">
+      <span class="section-label">002 / Nos marchés</span>
+      <h2 class="section-heading">Quatre univers,<br>une même exigence.</h2>
+      <div class="markets-grid">
+        <div class="market">
+          <span class="market-index">01</span>
+          <h3>Entreprises</h3>
+          <p>33&nbsp;000+ établissements et 275&nbsp;000 emplois sur Nantes Métropole. Mise en place rapide, contrat simple, sans engagement complexe.</p>
+        </div>
+        <div class="market">
+          <span class="market-index">02</span>
+          <h3>Santé — CHU</h3>
+          <p>Un flux continu, 24h/24. Le futur CHU Île de Nantes ouvrira en 2027, avec près d'1&nbsp;million de consultations par an.</p>
+        </div>
+        <div class="market">
+          <span class="market-index">03</span>
+          <h3>Campus universitaire</h3>
+          <p>Plus de 40&nbsp;000 étudiants sur le pôle nantais. Une présence pensée pour les lieux de vie étudiante.</p>
+        </div>
+        <div class="market">
+          <span class="market-index">04</span>
+          <h3>CROUS</h3>
+          <p>Un accompagnement de la vie étudiante en horaires élargis, complémentaire à l'offre de restauration existante.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 003 / Pourquoi nous (stats, dark overlay) -->
+  <section class="scroll-section section-stats align-center" id="pourquoi"
+           data-enter="38" data-leave="51" data-animation="stagger-up">
+    <div class="section-inner">
+      <span class="section-label section-label-dark">003 / Pourquoi nous choisir</span>
+      <h2 class="section-heading section-heading-dark">La confiance d'un marché mature.</h2>
+      <div class="stats-grid">
+        <div class="stat">
+          <span class="stat-number" data-value="2.5" data-decimals="1">0</span><span class="stat-suffix">Md€</span>
+          <span class="stat-label">Marché français de la distribution automatique</span>
+        </div>
+        <div class="stat">
+          <span class="stat-number" data-value="33" data-decimals="0">0</span><span class="stat-suffix">k+</span>
+          <span class="stat-label">Établissements sur Nantes Métropole</span>
+        </div>
+        <div class="stat">
+          <span class="stat-number" data-value="40" data-decimals="0">0</span><span class="stat-suffix">k+</span>
+          <span class="stat-label">Étudiants sur le pôle nantais</span>
+        </div>
+        <div class="stat">
+          <span class="stat-number" data-value="24" data-decimals="0">0</span><span class="stat-suffix">/7</span>
+          <span class="stat-label">Continuité de service, machines connectées</span>
+        </div>
+      </div>
+      <p class="stats-note">Paiement sans contact, écrans tactiles, maintenance réactive et assortiment adapté à chaque lieu — l'exigence d'un secteur devenu stratégique.</p>
+    </div>
+  </section>
+
+  <!-- 004 / Comment ça marche -->
+  <section class="scroll-section section-markets align-center" id="comment"
+           data-enter="55" data-leave="68" data-animation="clip-reveal">
+    <div class="section-inner markets-inner">
+      <span class="section-label">004 / Comment ça marche</span>
+      <h2 class="section-heading">De l'étude à la mise en service.</h2>
+      <div class="markets-grid">
+        <div class="market">
+          <span class="market-index">01</span>
+          <h3>Analyse de vos besoins</h3>
+          <p>Nous étudions votre établissement, votre fréquentation et les habitudes de consommation sur site.</p>
+        </div>
+        <div class="market">
+          <span class="market-index">02</span>
+          <h3>Choix de la machine</h3>
+          <p>Nous vous proposons le format — combiné, vitrine ou café — le plus adapté à votre espace.</p>
+        </div>
+        <div class="market">
+          <span class="market-index">03</span>
+          <h3>Installation</h3>
+          <p>La machine est installée et raccordée dans votre établissement, prête à l'usage dès sa mise en service.</p>
+        </div>
+        <div class="market">
+          <span class="market-index">04</span>
+          <h3>Suivi &amp; réassort</h3>
+          <p>Nous assurons le réapprovisionnement et la maintenance selon la formule choisie.</p>
+        </div>
+      </div>
+      <div class="steps-visual">
+        <img src="images/context-gym.jpeg" alt="Pause boisson fraîche dans un espace sportif" loading="lazy">
+        <img src="images/context-hotel.jpeg" alt="Point de vente automatique intégré dans un hall d'accueil" loading="lazy">
+      </div>
+    </div>
+  </section>
+
+  <!-- 005 / Nos modèles (3-card grid) -->
+  <section class="scroll-section section-lineup align-center" id="modeles"
+           data-enter="72" data-leave="85" data-animation="stagger-up">
+    <div class="section-inner lineup-inner">
+      <span class="section-label section-label-dark">005 / Nos modèles</span>
+      <h2 class="section-heading section-heading-dark">Un format pour chaque lieu.</h2>
+      <div class="lineup-grid">
+        <article class="lineup-card">
+          <div class="lineup-media">
+            <img src="images/machine-combine.png" alt="Distributeur Atlantiq'Distrib combiné boissons et snacks" loading="lazy">
+          </div>
+          <h3>Combiné boissons &amp; snacks</h3>
+          <p>Écran tactile et large sélection de snacks et boissons fraîches dans une machine compacte.</p>
+          <div class="lineup-tags"><span>Écran tactile</span><span>CB sans contact</span></div>
+          <a href="#produit" class="lineup-link" data-target="produit">Découvrir <span aria-hidden="true">→</span></a>
+        </article>
+        <article class="lineup-card">
+          <div class="lineup-media">
+            <img src="images/machine-vitrine-2.jpg" alt="Distributeur Atlantiq'Distrib avec façade vitrée, boissons fraîches" loading="lazy">
+          </div>
+          <h3>Vitrine boissons fraîches</h3>
+          <p>Façade vitrée grand format qui met en valeur les produits, idéale pour un hall d'accueil.</p>
+          <div class="lineup-tags"><span>Vitrine LED</span><span>Grande capacité</span></div>
+          <a href="#produit" class="lineup-link" data-target="produit">Découvrir <span aria-hidden="true">→</span></a>
+        </article>
+        <article class="lineup-card">
+          <div class="lineup-media contain">
+            <img src="images/machine-cafe-3.png" alt="Distributeur Atlantiq'Distrib de café et boissons chaudes" loading="lazy">
+          </div>
+          <h3>Café &amp; boissons chaudes</h3>
+          <p>Café en grain fraîchement moulu, thés et chocolats chauds à toute heure.</p>
+          <div class="lineup-tags"><span>Grain frais moulu</span><span>12+ recettes</span></div>
+          <a href="#produit" class="lineup-link" data-target="produit">Découvrir <span aria-hidden="true">→</span></a>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- 005 / Le distributeur -->
+  <section class="scroll-section section-content align-right" id="distributeur"
+           data-enter="88" data-leave="97" data-animation="clip-reveal">
+    <div class="section-inner">
+      <span class="section-label">006 / La machine</span>
+      <h2 class="section-heading">Une machine, pas un distributeur.</h2>
+      <p class="section-body">Conçue comme un point de vente autonome : interface tactile intuitive, paiement sans contact (carte, mobile) et une capacité de stockage optimisée pour limiter les ruptures.</p>
+      <ul class="feature-list">
+        <li>Paiement sans contact — carte &amp; mobile</li>
+        <li>Écran tactile haute lisibilité</li>
+        <li>Capacité de stockage étendue</li>
+        <li>Supervision connectée &amp; réassort réactif</li>
+      </ul>
+      <div class="device-video-frame">
+        <video autoplay muted loop playsinline preload="metadata">
+          <source src="distri.mp4" type="video/mp4">
+        </video>
+      </div>
+    </div>
+  </section>
+
+  <!-- 006 / Contact — persist -->
+  <section class="scroll-section section-cta align-center" id="contact"
+           data-enter="97" data-leave="100" data-animation="fade-up" data-persist="true">
+    <div class="section-inner cta-inner">
+      <span class="section-label">007 / Devis</span>
+      <h2 class="section-heading">Un accompagnement<br>sur mesure.</h2>
+      <p class="section-body">Entreprise, établissement de santé, campus ou CROUS : décrivez votre contexte, nous revenons vers vous avec une proposition adaptée à votre secteur.</p>
+
+      <form class="contact-form" id="contact-form">
+        <div class="form-row">
+          <div class="form-field">
+            <label for="nom">Nom &amp; prénom</label>
+            <input type="text" id="nom" name="nom" required>
+          </div>
+          <div class="form-field">
+            <label for="structure">Structure</label>
+            <input type="text" id="structure" name="structure" required>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-field">
+            <label for="email">Email professionnel</label>
+            <input type="email" id="email" name="email" required>
+          </div>
+          <div class="form-field">
+            <label for="telephone">Téléphone</label>
+            <input type="tel" id="telephone" name="telephone">
+          </div>
+        </div>
+        <div class="form-field">
+          <label for="secteur">Votre secteur</label>
+          <select id="secteur" name="secteur" required>
+            <option value="" disabled selected>Sélectionnez votre secteur</option>
+            <option value="entreprise">Entreprise</option>
+            <option value="sante">Établissement de santé</option>
+            <option value="campus">Campus universitaire</option>
+            <option value="crous">CROUS</option>
+          </select>
+        </div>
+        <div class="form-field">
+          <label for="message">Votre projet</label>
+          <textarea id="message" name="message" rows="3" placeholder="Nombre de sites, effectifs, contraintes d'implantation..."></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary cta-button">Envoyer ma demande</button>
+      </form>
+      <div class="form-success" id="form-success">
+        <svg width="28" height="28" viewBox="0 0 28 28" fill="none"><circle cx="14" cy="14" r="13" stroke="var(--coral)" stroke-width="1.6"/><path d="M8 14.5L12 18.5L20 9.5" stroke="var(--coral)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <p>Merci. Votre demande a bien été enregistrée — un interlocuteur dédié à votre secteur revient vers vous rapidement.</p>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<footer class="site-footer" data-persist="true">
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div class="footer-brand-col">
+        <div class="footer-brand">Atlantiq<span class="logo-apostrophe">'</span>Distrib</div>
+        <p class="footer-tagline">Distribution automatique premium — Nantes Métropole.</p>
+      </div>
+
+      <div class="footer-col">
+        <h4>Navigation</h4>
+        <ul>
+          <li><a href="#top" data-target="hero">Accueil</a></li>
+          <li><a href="#produit" data-target="produit">Le produit</a></li>
+          <li><a href="#marches" data-target="marches">Nos marchés</a></li>
+          <li><a href="#pourquoi" data-target="pourquoi">Pourquoi nous</a></li>
+          <li><a href="#modeles" data-target="modeles">Nos modèles</a></li>
+          <li><a href="#distributeur" data-target="distributeur">Le distributeur</a></li>
+          <li><a href="#contact" data-target="contact">Contact</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Informations</h4>
+        <ul class="footer-info">
+          <li>Zone d'intervention<span>Nantes Métropole</span></li>
+          <li>Disponibilité<span>Machines actives 24h/24, 7j/7</span></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Légal</h4>
+        <ul>
+          <li><a href="#">Mentions légales</a></li>
+          <li><a href="#">Politique de confidentialité</a></li>
+          <li><a href="#">Gestion des cookies</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Suivez-nous</h4>
+        <div class="footer-socials">
+          <a href="#" aria-label="Instagram">
+            <svg viewBox="0 0 24 24" fill="none"><rect x="3" y="3" width="18" height="18" rx="5" stroke="currentColor" stroke-width="1.6"/><circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="1.6"/><circle cx="17.2" cy="6.8" r="1.1" fill="currentColor"/></svg>
+          </a>
+          <a href="#" aria-label="Facebook">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M14 21v-7h2.5l.5-3H14V9c0-1 .3-1.7 1.7-1.7H17V4.6C16.7 4.6 15.7 4.5 14.6 4.5c-2.3 0-3.9 1.4-3.9 4V11H8v3h2.7v7h3.3Z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/></svg>
+          </a>
+          <a href="#" aria-label="TikTok">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M15 4v9.5a3.2 3.2 0 1 1-2.6-3.15" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><path d="M15 4c.3 2.2 1.9 3.8 4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+          </a>
+          <a href="#" aria-label="LinkedIn">
+            <svg viewBox="0 0 24 24" fill="none"><rect x="3" y="3" width="18" height="18" rx="3" stroke="currentColor" stroke-width="1.6"/><circle cx="8" cy="8.5" r="1.2" fill="currentColor"/><path d="M8 11.5v6M12 11.5v6M12 14c0-1.5 1-2.5 2.3-2.5S16.5 12.5 16.5 14v3.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <p class="footer-copy">© 2026 Atlantiq'Distrib. Tous droits réservés.</p>
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/lenis@1/dist/lenis.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/ScrollTrigger.min.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
