@@ -144,21 +144,15 @@ navMobile.querySelectorAll(".nav-mobile-chevron").forEach((btn) => {
 });
 
 /* ============================================================
-   Section scroll targets — midpoint of each section's data-enter/data-leave,
-   so a nav click lands where the section is fully visible and centered
-   (not at its "enter" edge, where it's still fading in / off-position).
+   Nav click targets — read the section's own actual rendered position
+   (getBoundingClientRect) rather than recomputing the enter/leave/mid
+   math a second time here. Sections are positioned in three different
+   ways depending on device and persist state (see setupSectionAnimation
+   below); reading the live layout instead of duplicating that logic
+   means this can never drift out of sync with however a section is
+   actually placed, on any viewport, visible or not (visibility:hidden
+   elements keep their geometry — only display:none would break this).
    ============================================================ */
-const SECTION_TARGETS = {
-  hero: 0,
-  produit: 11.5,
-  marches: 27.5,
-  pourquoi: 44.5,
-  comment: 61.5,
-  modeles: 78.5,
-  distributeur: 92.5,
-  contact: 99.2
-};
-
 document.querySelectorAll("[data-target]").forEach((el) => {
   el.addEventListener("click", (e) => {
     e.preventDefault();
@@ -167,14 +161,10 @@ document.querySelectorAll("[data-target]").forEach((el) => {
       lenis.scrollTo(0, { duration: 1.4 });
       return;
     }
-    const container = document.getElementById("scroll-container");
-    const pct = SECTION_TARGETS[key] / 100;
-    // Scroll progress spans [containerTop, containerTop + containerHeight - viewportHeight]
-    // (ScrollTrigger's "end: bottom bottom" stops one viewport short of the container's own height),
-    // so the target scrollY must use that same shorter range — not the full container height.
-    const scrollableRange = container.offsetHeight - window.innerHeight;
-    const targetY = container.offsetTop + pct * scrollableRange;
-    lenis.scrollTo(targetY, { duration: 1.6, offset: -20 });
+    const targetSection = document.getElementById(key);
+    if (!targetSection) return;
+    const targetY = window.scrollY + targetSection.getBoundingClientRect().top - HEADER_CLEARANCE;
+    lenis.scrollTo(targetY, { duration: 1.6 });
   });
 });
 
@@ -342,13 +332,19 @@ document.querySelectorAll(".marquee-wrap").forEach((el) => {
    Section reveal choreography
    ============================================================ */
 const CONTAINER_VH = 1300; // must match #scroll-container height in CSS
+const FADE_IN = 0.02;
+const FADE_OUT = 0.02;
+const HEADER_CLEARANCE = 90; // clears the fixed header in both its scrolled/unscrolled heights
 
 // ScrollTrigger's progress (0-1) spans scrollY range [containerTop, containerTop + H - V],
 // while CSS `top:%` is relative to the full container height H. Since GSAP's "end: bottom bottom"
 // stops the scroll range one viewport-height short of the container's own height, a section's
-// `top` must be remapped so its center aligns with the viewport center at the intended progress.
-function progressToTopPercent(mid) {
-  return mid * (100 - 10000 / CONTAINER_VH) + 5000 / CONTAINER_VH;
+// `top` must be remapped so a chosen anchor point (align: 0 = its own top edge, 0.5 = its
+// center, matched by translateY) lines up with that same point in the viewport at the given
+// scroll progress.
+function progressToTopPercent(progress, align = 0.5) {
+  const k = 10000 / CONTAINER_VH;
+  return progress * (100 - k) + k * align;
 }
 
 function setupSectionAnimation(section) {
@@ -357,7 +353,30 @@ function setupSectionAnimation(section) {
   const enter = parseFloat(section.dataset.enter) / 100;
   const leave = parseFloat(section.dataset.leave) / 100;
   const mid = (enter + leave) / 2;
-  section.style.top = `calc(${progressToTopPercent(mid)}% + 24px)`;
+  const isMobile = window.innerWidth <= 768;
+
+  if (persist) {
+    // Persistent CTA content can run taller than the viewport (stacked mobile
+    // form fields especially). Anchor it to the bottom of the scroll range by its
+    // own measured height instead of centering it, so scrolling to the end of the
+    // page always reveals all the way down to its last element (e.g. the submit
+    // button) rather than leaving it stranded off past whichever end.
+    const container = section.parentElement;
+    const bottomPadding = 40;
+    const topPx = Math.max(0, container.offsetHeight - section.offsetHeight - bottomPadding);
+    section.style.top = topPx + "px";
+    section.style.transform = "translateY(0)";
+  } else if (isMobile) {
+    // Mobile layouts stack content into columns taller than the viewport, so
+    // centering it around a midpoint would push its top half off-screen. Anchor
+    // by top-of-section at "enter + FADE_IN" instead: that's the point it has
+    // just finished fading in, so it lands fully opaque AND at the top of the
+    // viewport, then the rest scrolls past normally, top to bottom.
+    section.style.top = `calc(${progressToTopPercent(enter + FADE_IN, 0)}% + ${HEADER_CLEARANCE}px)`;
+    section.style.transform = "translateY(0)";
+  } else {
+    section.style.top = `calc(${progressToTopPercent(mid, 0.5)}% + 24px)`;
+  }
 
   const children = section.querySelectorAll(
     ".section-label, .section-heading, .section-body, .section-note, .product-tags, .product-visual-plaque, .feature-list li, .device-video-frame, .markets-grid .market, .steps-visual, .stats-grid .stat, .stats-note, .lineup-grid .lineup-card, .cta-direct-contact, .cta-button, .contact-form, .btn"
@@ -397,8 +416,8 @@ function setupSectionAnimation(section) {
     scrub: true,
     onUpdate: (self) => {
       const p = self.progress;
-      const fadeIn = 0.02;
-      const fadeOut = 0.02;
+      const fadeIn = FADE_IN;
+      const fadeOut = FADE_OUT;
 
       if (p < enter) {
         section.style.visibility = "hidden";
@@ -423,7 +442,12 @@ function setupSectionAnimation(section) {
         section.style.opacity = persist ? 1 : 0;
       }
 
-      const tlProgress = Math.max(0, Math.min(1, (p - enter) / Math.min(0.08, (leave - enter) * 0.4)));
+      // Persist sections never fade out, so their whole enter→leave range can be spent
+      // on the entrance stagger (it finishes exactly as the permanent opacity-lock below
+      // kicks in). Other sections cap the window at a fraction of their range so the
+      // entrance doesn't eat into their own visible/settled reading time.
+      const tlWindow = persist ? Math.max(leave - enter, 0.001) : Math.min(0.08, (leave - enter) * 0.4);
+      const tlProgress = Math.max(0, Math.min(1, (p - enter) / tlWindow));
       tl.progress(tlProgress);
       entered = true;
     }
