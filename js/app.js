@@ -13,40 +13,80 @@ gsap.ticker.add((time) => lenis.raf(time * 1000));
 gsap.ticker.lagSmoothing(0);
 
 /* ============================================================
-   Loader
+   Loader — preloads distri.mp4 fully into memory as a Blob.
+   Video-scrub (canvas seeking) needs random access into the file via
+   HTTP Range requests, which GitHub Pages' CDN does not support (it
+   always returns a full 200 response, never 206 Partial Content).
+   Fetching the whole file once up front and handing every <video> a
+   blob: URL sidesteps that entirely — seeking then happens against
+   the in-memory copy, no further network requests involved.
    ============================================================ */
 const loader = document.getElementById("loader");
 const loaderBar = document.getElementById("loader-bar");
 const loaderPercent = document.getElementById("loader-percent");
 const heroVideo = document.querySelector(".hero-video");
 
-let loadProgress = 0;
-const loaderTimer = setInterval(() => {
-  loadProgress = Math.min(loadProgress + Math.random() * 18, 92);
-  updateLoaderUI();
-}, 140);
-
-function updateLoaderUI() {
-  loaderBar.style.width = loadProgress + "%";
-  loaderPercent.textContent = Math.round(loadProgress) + "%";
+function updateLoaderUI(pct) {
+  loaderBar.style.width = pct + "%";
+  loaderPercent.textContent = Math.round(pct) + "%";
 }
 
 function finishLoading() {
-  clearInterval(loaderTimer);
-  loadProgress = 100;
-  updateLoaderUI();
+  updateLoaderUI(100);
   setTimeout(() => {
     loader.classList.add("loader-hidden");
     playIntro();
   }, 350);
 }
 
-if (heroVideo.readyState >= 3) {
-  finishLoading();
-} else {
-  heroVideo.addEventListener("canplaythrough", finishLoading, { once: true });
-  setTimeout(finishLoading, 3200); // safety fallback
+function applyVideoSrc(url) {
+  document.querySelectorAll("video").forEach((v) => {
+    v.setAttribute("src", url);
+    v.load();
+    if (v.autoplay) v.play().catch(() => {});
+  });
 }
+
+let videoLoadSettled = false;
+setTimeout(() => {
+  if (!videoLoadSettled) { videoLoadSettled = true; finishLoading(); }
+}, 15000); // safety fallback if the fetch stalls on a very slow connection
+
+fetch("distri.mp4")
+  .then((response) => {
+    const total = parseInt(response.headers.get("Content-Length") || "0", 10);
+    if (!response.body || !total) {
+      // Streaming progress unavailable — fall back to a plain fetch, still avoids Range entirely.
+      updateLoaderUI(60);
+      return response.blob();
+    }
+    const reader = response.body.getReader();
+    const chunks = [];
+    let loaded = 0;
+    function pump() {
+      return reader.read().then(({ done, value }) => {
+        if (done) return new Blob(chunks, { type: "video/mp4" });
+        chunks.push(value);
+        loaded += value.length;
+        updateLoaderUI(Math.min(96, (loaded / total) * 100));
+        return pump();
+      });
+    }
+    return pump();
+  })
+  .then((blob) => {
+    if (videoLoadSettled) return;
+    videoLoadSettled = true;
+    applyVideoSrc(URL.createObjectURL(blob));
+    finishLoading();
+  })
+  .catch(() => {
+    // Network/CORS failure: keep the original <source src="distri.mp4"> already in the
+    // markup as a plain-playback fallback (scrubbing just won't be available).
+    if (videoLoadSettled) return;
+    videoLoadSettled = true;
+    finishLoading();
+  });
 
 /* ============================================================
    Header scroll state + mobile nav
