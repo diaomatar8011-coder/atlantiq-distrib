@@ -454,7 +454,34 @@ function setupSectionAnimation(section) {
   });
 }
 
-document.querySelectorAll(".scroll-section").forEach(setupSectionAnimation);
+// Wait for web fonts before measuring the persist section's height (see setupSectionAnimation):
+// measuring while text is still rendered in a fallback font under-counts its real height,
+// pushing the bottom-anchored position too far down and letting it overflow past the footer
+// once the real font swaps in and the content grows taller.
+function initSectionAnimations() {
+  document.querySelectorAll(".scroll-section").forEach(setupSectionAnimation);
+}
+if (document.fonts && document.fonts.ready) {
+  document.fonts.ready.then(initSectionAnimations).catch(initSectionAnimations);
+} else {
+  initSectionAnimations();
+}
+
+// Re-anchor the persist section if the viewport changes size (orientation flip, mobile
+// browser toolbar show/hide, window resize) — its position is measured in real pixels,
+// not the vh-relative formula the other sections use, so it's the one that can drift.
+let resizeRepositionTimer = null;
+window.addEventListener("resize", () => {
+  clearTimeout(resizeRepositionTimer);
+  resizeRepositionTimer = setTimeout(() => {
+    const persistSection = document.querySelector('.scroll-section[data-persist="true"]');
+    if (!persistSection) return;
+    const container = persistSection.parentElement;
+    const bottomPadding = 40;
+    const topPx = Math.max(0, container.offsetHeight - persistSection.offsetHeight - bottomPadding);
+    persistSection.style.top = topPx + "px";
+  }, 200);
+});
 
 /* ============================================================
    Stats counters
