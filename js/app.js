@@ -350,22 +350,28 @@ function progressToTopPercent(progress, align = 0.5) {
 function setupSectionAnimation(section) {
   const type = section.dataset.animation;
   const persist = section.dataset.persist === "true";
-  const enter = parseFloat(section.dataset.enter) / 100;
-  const leave = parseFloat(section.dataset.leave) / 100;
-  const mid = (enter + leave) / 2;
+  let enter = parseFloat(section.dataset.enter) / 100;
+  let leave = parseFloat(section.dataset.leave) / 100;
   const isMobile = window.innerWidth <= 768;
 
   if (persist) {
     // Persistent CTA content can run taller than the viewport (stacked mobile
-    // form fields especially). Anchor it to the bottom of the scroll range by its
-    // own measured height instead of centering it, so scrolling to the end of the
-    // page always reveals all the way down to its last element (e.g. the submit
-    // button) rather than leaving it stranded off past whichever end.
-    const container = section.parentElement;
-    const bottomPadding = 40;
-    const topPx = Math.max(0, container.offsetHeight - section.offsetHeight - bottomPadding);
-    section.style.top = topPx + "px";
-    section.style.transform = "translateY(0)";
+    // form fields especially, or a multi-step form with a lot in one step) —
+    // anchor it to the bottom of the scroll range by its own measured height
+    // instead of centering it, so scrolling to the end of the page always
+    // reveals all the way down to its last element (e.g. the submit button).
+    //
+    // Content this tall can end up positioned much earlier on the page than the
+    // hardcoded data-enter percentage assumes (a short form near data-enter="97"
+    // vs. a tall one whose bottom-anchored top actually lands around 85%) — if
+    // the opacity/visibility logic below kept using the static data-enter, the
+    // section would already be scrolled into view while still invisible. So its
+    // real fade-in threshold is derived from the same pixel math as its position,
+    // recomputed by positionPersistSection() whenever that height changes
+    // (resize, or switching quote-form steps) via section._dynEnter.
+    positionPersistSection(section);
+    enter = section._dynEnter;
+    leave = 1;
   } else if (isMobile) {
     // Mobile layouts stack content into columns taller than the viewport, so
     // centering it around a midpoint would push its top half off-screen. Anchor
@@ -375,7 +381,7 @@ function setupSectionAnimation(section) {
     section.style.top = `calc(${progressToTopPercent(enter + FADE_IN, 0)}% + ${HEADER_CLEARANCE}px)`;
     section.style.transform = "translateY(0)";
   } else {
-    section.style.top = `calc(${progressToTopPercent(mid, 0.5)}% + 24px)`;
+    section.style.top = `calc(${progressToTopPercent((enter + leave) / 2, 0.5)}% + 24px)`;
   }
 
   const children = section.querySelectorAll(
@@ -418,13 +424,18 @@ function setupSectionAnimation(section) {
       const p = self.progress;
       const fadeIn = FADE_IN;
       const fadeOut = FADE_OUT;
+      // Persist sections re-measure their fade-in threshold whenever their height changes
+      // (positionPersistSection updates section._dynEnter) — read it live rather than the
+      // value captured in this closure at initial setup, which would go stale.
+      const liveEnter = persist ? section._dynEnter : enter;
+      const liveLeave = persist ? 1 : leave;
 
-      if (p < enter) {
+      if (p < liveEnter) {
         section.style.visibility = "hidden";
         if (entered && !persist) entered = false;
         return;
       }
-      if (persist && p >= leave) {
+      if (persist && p >= liveLeave) {
         section.style.visibility = "visible";
         section.style.opacity = 1;
         if (!entered) { tl.progress(1); entered = true; }
@@ -432,12 +443,12 @@ function setupSectionAnimation(section) {
       }
       section.style.visibility = "visible";
 
-      if (p >= enter && p < enter + fadeIn) {
-        section.style.opacity = (p - enter) / fadeIn;
-      } else if (p >= enter + fadeIn && p <= leave - fadeOut) {
+      if (p >= liveEnter && p < liveEnter + fadeIn) {
+        section.style.opacity = (p - liveEnter) / fadeIn;
+      } else if (p >= liveEnter + fadeIn && p <= liveLeave - fadeOut) {
         section.style.opacity = 1;
-      } else if (p > leave - fadeOut && p <= leave) {
-        section.style.opacity = persist ? 1 : 1 - (p - (leave - fadeOut)) / fadeOut;
+      } else if (p > liveLeave - fadeOut && p <= liveLeave) {
+        section.style.opacity = persist ? 1 : 1 - (p - (liveLeave - fadeOut)) / fadeOut;
       } else {
         section.style.opacity = persist ? 1 : 0;
       }
@@ -446,8 +457,8 @@ function setupSectionAnimation(section) {
       // on the entrance stagger (it finishes exactly as the permanent opacity-lock below
       // kicks in). Other sections cap the window at a fraction of their range so the
       // entrance doesn't eat into their own visible/settled reading time.
-      const tlWindow = persist ? Math.max(leave - enter, 0.001) : Math.min(0.08, (leave - enter) * 0.4);
-      const tlProgress = Math.max(0, Math.min(1, (p - enter) / tlWindow));
+      const tlWindow = persist ? Math.max(liveLeave - liveEnter, 0.001) : Math.min(0.08, (liveLeave - liveEnter) * 0.4);
+      const tlProgress = Math.max(0, Math.min(1, (p - liveEnter) / tlWindow));
       tl.progress(tlProgress);
       entered = true;
     }
@@ -467,19 +478,40 @@ if (document.fonts && document.fonts.ready) {
   initSectionAnimations();
 }
 
-// Re-anchor the persist section if the viewport changes size (orientation flip, mobile
-// browser toolbar show/hide, window resize) — its position is measured in real pixels,
-// not the vh-relative formula the other sections use, so it's the one that can drift.
+// Anchors the persist section to the bottom of the scroll range using its own measured
+// height, and derives the scroll progress at which it should start fading in from that
+// same pixel math (see the long comment in setupSectionAnimation for why the two must
+// stay in sync). Called at initial setup, on viewport resize, and after switching
+// quote-form steps — anything that can change the section's rendered height.
+function positionPersistSection(section) {
+  const container = section.parentElement;
+  const bottomPadding = 40;
+  const topPx = Math.max(0, container.offsetHeight - section.offsetHeight - bottomPadding);
+  section.style.top = topPx + "px";
+  section.style.transform = "translateY(0)";
+
+  const scrollableRange = container.offsetHeight - window.innerHeight;
+  const rawEnter = scrollableRange > 0 ? topPx / scrollableRange : 0.9;
+  // Nav clicks (and the natural resting scroll) land with the section's top at
+  // HEADER_CLEARANCE px, not at the very top of the viewport (progress 0 there) — so the
+  // progress actually reached is rawEnter minus that offset's share of the scroll range.
+  // The fade-in must fully complete (dynEnter + FADE_IN) at or before that point, or
+  // landing there shows the section mid-fade instead of fully opaque.
+  const headerClearanceProgress = scrollableRange > 0 ? HEADER_CLEARANCE / scrollableRange : 0;
+  section._dynEnter = Math.max(0, Math.min(0.96, rawEnter - headerClearanceProgress - FADE_IN - 0.005));
+}
+
+function repositionPersistSection() {
+  const persistSection = document.querySelector('.scroll-section[data-persist="true"]');
+  if (!persistSection) return;
+  positionPersistSection(persistSection);
+}
+
 let resizeRepositionTimer = null;
 window.addEventListener("resize", () => {
   clearTimeout(resizeRepositionTimer);
   resizeRepositionTimer = setTimeout(() => {
-    const persistSection = document.querySelector('.scroll-section[data-persist="true"]');
-    if (!persistSection) return;
-    const container = persistSection.parentElement;
-    const bottomPadding = 40;
-    const topPx = Math.max(0, container.offsetHeight - persistSection.offsetHeight - bottomPadding);
-    persistSection.style.top = topPx + "px";
+    repositionPersistSection();
   }, 200);
 });
 
@@ -510,19 +542,116 @@ document.querySelectorAll(".stat-number").forEach((el) => {
 });
 
 /* ============================================================
-   Contact form
+   Quote form — card selection, step navigation, submit
    ============================================================ */
 const form = document.getElementById("contact-form");
 const formSuccess = document.getElementById("form-success");
-form.addEventListener("submit", (e) => {
-  e.preventDefault();
-  if (!form.checkValidity()) {
-    form.reportValidity();
-    return;
+
+if (form) {
+  const fieldsets = Array.from(form.querySelectorAll(".quote-fieldset"));
+  const stepIndicators = document.querySelectorAll(".quote-step");
+  const progressBar = document.getElementById("quote-progress-bar");
+  let currentStep = 1;
+
+  // Single-select card groups (type d'établissement, type de distributeur): clicking a
+  // card selects it, deselects its siblings, and stores the choice in a hidden input so
+  // it submits like a normal form field.
+  form.querySelectorAll(".quote-cards").forEach((group) => {
+    const name = group.dataset.name;
+    const hidden = document.createElement("input");
+    hidden.type = "hidden";
+    hidden.name = name;
+    group.appendChild(hidden);
+
+    group.querySelectorAll(".quote-card").forEach((card) => {
+      card.addEventListener("click", () => {
+        group.querySelectorAll(".quote-card").forEach((c) => c.classList.remove("selected"));
+        card.classList.add("selected");
+        hidden.value = card.dataset.value;
+      });
+    });
+  });
+
+  // Character counter for the free-text project field.
+  const messageField = document.getElementById("quote-message");
+  const charCountVal = document.getElementById("quote-charcount-val");
+  if (messageField && charCountVal) {
+    messageField.addEventListener("input", () => {
+      charCountVal.textContent = messageField.value.length;
+    });
   }
-  form.classList.add("hidden");
-  formSuccess.classList.add("visible");
-});
+
+  function updateStepUI() {
+    fieldsets.forEach((fs) => {
+      const step = parseInt(fs.dataset.fieldset, 10);
+      fs.hidden = step !== currentStep;
+    });
+    stepIndicators.forEach((el) => {
+      const step = parseInt(el.dataset.stepIndicator, 10);
+      el.classList.toggle("active", step === currentStep);
+      el.classList.toggle("done", step < currentStep);
+    });
+    progressBar.style.width = (currentStep / fieldsets.length) * 100 + "%";
+    // The visible fieldset just changed height, so the persist section's bottom-anchor
+    // position (measured in real pixels) needs recalculating.
+    repositionPersistSection();
+  }
+
+  function currentFieldset() {
+    return fieldsets.find((fs) => parseInt(fs.dataset.fieldset, 10) === currentStep);
+  }
+
+  // A native <button> inside a form defaults to type="submit" unless declared otherwise;
+  // every quote-card and nav button is explicitly type="button" in the markup so clicking
+  // one never triggers an early, unintended form submission.
+  function validateStep(fieldset) {
+    const invalid = [];
+
+    fieldset.querySelectorAll(".quote-cards[data-required='true']").forEach((group) => {
+      if (!group.querySelector(".quote-card.selected")) invalid.push(group);
+    });
+
+    const requiredFields = fieldset.querySelectorAll("input[required], select[required], textarea[required]");
+    requiredFields.forEach((field) => {
+      if (field.type === "checkbox" ? !field.checked : !field.value.trim()) invalid.push(field);
+    });
+
+    if (invalid.length) {
+      const first = invalid[0];
+      if (first instanceof HTMLElement && "reportValidity" in first) first.reportValidity();
+      first.scrollIntoView({ block: "center", behavior: "smooth" });
+      if (first.classList && first.classList.contains("quote-cards")) {
+        first.classList.add("quote-cards-error");
+        setTimeout(() => first.classList.remove("quote-cards-error"), 1200);
+      }
+      return false;
+    }
+    return true;
+  }
+
+  form.querySelectorAll(".quote-next").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      if (!validateStep(currentFieldset())) return;
+      currentStep = Math.min(currentStep + 1, fieldsets.length);
+      updateStepUI();
+    });
+  });
+
+  form.querySelectorAll(".quote-prev").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      currentStep = Math.max(currentStep - 1, 1);
+      updateStepUI();
+    });
+  });
+
+  form.addEventListener("submit", (e) => {
+    e.preventDefault();
+    if (!validateStep(currentFieldset())) return;
+    form.classList.add("hidden");
+    formSuccess.classList.add("visible");
+    repositionPersistSection();
+  });
+}
 
 /* ============================================================
    Footer persist visibility
