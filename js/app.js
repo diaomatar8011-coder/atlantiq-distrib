@@ -100,7 +100,7 @@ const burger = document.getElementById("nav-burger");
 const navMobile = document.getElementById("nav-mobile");
 const navBackdrop = document.getElementById("nav-backdrop");
 const navMobileItems = navMobile.querySelectorAll(
-  ".nav-mobile-item, .nav-mobile-cta, .nav-mobile-socials"
+  ".nav-mobile-item, .nav-mobile-cta, .nav-mobile-contact, .nav-mobile-socials"
 );
 
 function openMobileNav() {
@@ -360,7 +360,7 @@ function setupSectionAnimation(section) {
   section.style.top = `calc(${progressToTopPercent(mid)}% + 24px)`;
 
   const children = section.querySelectorAll(
-    ".section-label, .section-heading, .section-body, .section-note, .product-tags, .product-visual-plaque, .feature-list li, .device-video-frame, .markets-grid .market, .steps-visual, .stats-grid .stat, .stats-note, .lineup-grid .lineup-card, .cta-button, .contact-form, .btn"
+    ".section-label, .section-heading, .section-body, .section-note, .product-tags, .product-visual-plaque, .feature-list li, .device-video-frame, .markets-grid .market, .steps-visual, .stats-grid .stat, .stats-note, .lineup-grid .lineup-card, .cta-direct-contact, .cta-button, .contact-form, .btn"
   );
 
   const tl = gsap.timeline({ paused: true });
