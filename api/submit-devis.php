@@ -22,8 +22,10 @@ function clean($value) {
     return trim(strip_tags((string) ($value ?? '')));
 }
 
-// Honeypot: a real visitor never fills or even sees this field.
-if (clean($data['website'] ?? '') !== '') {
+// Honeypot: a real visitor never fills or even sees this field. Deliberately named
+// something that doesn't match any browser autocomplete token (unlike "website",
+// which some autofill profiles fill in automatically even on a hidden field).
+if (clean($data['hp_check_2847'] ?? '') !== '') {
     echo json_encode(['success' => true]);
     exit;
 }
