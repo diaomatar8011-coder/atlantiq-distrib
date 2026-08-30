@@ -1067,6 +1067,22 @@ input, select, textarea { font-family: inherit; }
 }
 .btn-ghost-dark:hover { background: rgba(10, 24, 48, 0.06); color: var(--ink); }
 .quote-trust { font-size: 0.78rem; color: var(--muted); margin-top: 0.6rem; }
+.quote-honeypot {
+  position: absolute !important;
+  width: 1px; height: 1px;
+  overflow: hidden;
+  clip: rect(0,0,0,0);
+  white-space: nowrap;
+}
+.quote-error {
+  margin-top: 1rem;
+  padding: 0.9rem 1.1rem;
+  background: rgba(217, 86, 58, 0.08);
+  border: 1px solid rgba(217, 86, 58, 0.25);
+  border-radius: 6px;
+  color: var(--coral-dim);
+  font-size: 0.85rem;
+}
 
 .quote-visual {
   background: var(--navy-950);

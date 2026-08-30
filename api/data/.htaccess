@@ -1,0 +1,8 @@
+# Never serve the raw stored submissions directly over HTTP — only
+# admin/index.php (server-side) is allowed to read this file.
+<IfModule mod_authz_core.c>
+    Require all denied
+</IfModule>
+<IfModule !mod_authz_core.c>
+    Deny from all
+</IfModule>

@@ -656,12 +656,38 @@ if (form) {
     });
   });
 
+  const quoteError = document.getElementById("quote-error");
   form.addEventListener("submit", (e) => {
     e.preventDefault();
     if (!validateStep(currentFieldset())) return;
-    form.classList.add("hidden");
-    formSuccess.classList.add("visible");
-    repositionPersistSection();
+
+    const submitBtn = form.querySelector('button[type="submit"]');
+    const originalLabel = submitBtn.innerHTML;
+    submitBtn.disabled = true;
+    submitBtn.textContent = "Envoi en cours...";
+    quoteError.hidden = true;
+
+    const payload = {};
+    new FormData(form).forEach((value, key) => { payload[key] = value; });
+
+    fetch("api/submit-devis.php", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload)
+    })
+      .then((res) => res.json().catch(() => ({ success: false })))
+      .then((data) => {
+        if (!data.success) throw new Error(data.error || "submit failed");
+        form.classList.add("hidden");
+        formSuccess.classList.add("visible");
+        repositionPersistSection();
+      })
+      .catch(() => {
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = originalLabel;
+        quoteError.hidden = false;
+        quoteError.scrollIntoView({ block: "nearest", behavior: "smooth" });
+      });
   });
 }
 
