@@ -889,8 +889,12 @@ input, select, textarea { font-family: inherit; }
   border-radius: 6px;
   box-shadow: 0 40px 100px -30px rgba(10, 24, 48, 0.25);
 }
-.cta-inner { max-width: 640px; }
-.cta-inner-wide { max-width: 1180px; }
+/* Two classes each, matching (not just outweighing) .align-center .section-inner's
+   specificity — since #contact also carries align-center, that rule's max-width:1200px
+   would otherwise win (same specificity, but declared earlier in the file) and silently
+   override the value below, ballooning this panel and everything sized relative to it. */
+.section-cta .cta-inner { max-width: 640px; }
+.section-cta .cta-inner-wide { max-width: 1180px; }
 
 /* ============================================================
    Quote form — multi-step

@@ -45,6 +45,18 @@ function applyVideoSrc(url) {
     v.load();
     if (v.autoplay) v.play().catch(() => {});
   });
+  // Paint the canvas as soon as the scrub video has its first frame decoded, rather than
+  // waiting for the first scroll-triggered seek — otherwise, if the user scrolls into the
+  // circle-wipe reveal before that first seek completes (a real decode, can take a moment
+  // on a fresh video element), the canvas is empty and only the navy fallback shows through.
+  const scrubEl = document.getElementById("scrub-video");
+  if (scrubEl) {
+    if (scrubEl.readyState >= 2) {
+      drawVideoFrame();
+    } else {
+      scrubEl.addEventListener("loadeddata", () => drawVideoFrame(), { once: true });
+    }
+  }
 }
 
 let videoLoadSettled = false;
