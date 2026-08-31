@@ -112,14 +112,14 @@ input, select, textarea { font-family: inherit; }
 .logo {
   display: flex;
   align-items: center;
-  gap: 0.55rem;
+  gap: 0.7rem;
   color: var(--text-on-dark);
 }
-.logo-mark { width: 32px; height: 32px; display: flex; }
+.logo-mark { width: 44px; height: 44px; display: flex; }
 .logo-mark svg { width: 100%; height: 100%; }
 .logo-word {
   font-family: var(--font-display);
-  font-size: 1.1rem;
+  font-size: 1.35rem;
   font-weight: 600;
   letter-spacing: 0.03em;
   text-transform: uppercase;
@@ -1283,7 +1283,7 @@ input, select, textarea { font-family: inherit; }
 /* The 6-item nav (with its longer labels) needs more room than the content
    breakpoints below — it switches to the mobile burger menu earlier, while
    section/content layout keeps following max-width: 768px. */
-@media (max-width: 1190px) {
+@media (max-width: 1225px) {
   .nav-links { display: none; }
   .nav-cta { display: none; }
   .nav-burger { display: flex; }
