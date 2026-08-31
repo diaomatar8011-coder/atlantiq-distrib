@@ -102,6 +102,49 @@ input, select, textarea { font-family: inherit; }
   -webkit-backdrop-filter: blur(14px) saturate(140%);
   border-bottom: 1px solid rgba(244, 241, 234, 0.08);
 }
+/* At the top of the page the header shows a centered brand block (logo,
+   wordmark, tagline) above the nav row. Scrolling collapses it away and
+   swaps in the small inline logo on the nav row instead — the compact,
+   single-row header everyone actually navigates with. */
+.header-brand-row {
+  display: flex;
+  justify-content: center;
+  max-height: 100px;
+  opacity: 1;
+  overflow: hidden;
+  margin-bottom: 1.3rem;
+  padding-bottom: 1.2rem;
+  border-bottom: 1px solid rgba(244, 241, 234, 0.12);
+  transition: max-height 0.4s var(--ease-premium), opacity 0.3s ease,
+    margin-bottom 0.4s var(--ease-premium), padding-bottom 0.4s var(--ease-premium),
+    border-color 0.4s ease;
+}
+.site-header.scrolled .header-brand-row {
+  max-height: 0;
+  opacity: 0;
+  margin-bottom: 0;
+  padding-bottom: 0;
+  border-color: transparent;
+  pointer-events: none;
+}
+.header-brand {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  color: var(--text-on-dark);
+}
+.header-brand .logo-mark { width: 52px; height: 52px; }
+.header-brand-text { display: flex; flex-direction: column; gap: 0.2rem; }
+.header-brand .logo-word { font-size: 1.6rem; }
+.header-tagline {
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  font-weight: 400;
+  letter-spacing: 0.01em;
+  color: var(--muted-on-dark);
+}
+.site-header nav .logo { display: none; }
+.site-header.scrolled nav .logo { display: flex; }
 .site-header nav {
   display: flex;
   align-items: center;
