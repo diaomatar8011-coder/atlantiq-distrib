@@ -435,11 +435,14 @@ function setupSectionAnimation(section) {
         section.style.opacity = persist ? 1 : 0;
       }
 
-      // Persist sections never fade out, so their whole enter→leave range can be spent
-      // on the entrance stagger (it finishes exactly as the permanent opacity-lock below
-      // kicks in). Other sections cap the window at a fraction of their range so the
-      // entrance doesn't eat into their own visible/settled reading time.
-      const tlWindow = persist ? Math.max(liveLeave - liveEnter, 0.001) : Math.min(0.08, (liveLeave - liveEnter) * 0.4);
+      // Persist sections' enter→leave range spans all the way to the very bottom of the
+      // page (liveLeave is always 1) — stretching the entrance stagger across that whole
+      // range meant elements late in the stagger order (buttons buried in later quote-form
+      // steps, in particular) stayed faded/near-invisible unless the visitor scrolled to
+      // the literal last pixel of the page, which most people filling out a form never do.
+      // Complete the stagger quickly instead, in the same short window as the section's
+      // own fade-in.
+      const tlWindow = persist ? FADE_IN : Math.min(0.08, (liveLeave - liveEnter) * 0.4);
       const tlProgress = Math.max(0, Math.min(1, (p - liveEnter) / tlWindow));
       tl.progress(tlProgress);
       entered = true;
@@ -487,6 +490,12 @@ function repositionPersistSection() {
   const persistSection = document.querySelector('.scroll-section[data-persist="true"]');
   if (!persistSection) return;
   positionPersistSection(persistSection);
+  // _dynEnter just changed but the scroll-linked opacity/stagger animation only
+  // re-evaluates on an actual scroll event — without forcing an update here, a
+  // step change (or resize) with no scroll in between can leave the form's fade-in
+  // timeline stuck mid-progress (or at its pre-entrance state) until the user
+  // scrolls again.
+  ScrollTrigger.update();
 }
 
 let resizeRepositionTimer = null;
