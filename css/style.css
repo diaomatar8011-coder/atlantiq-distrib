@@ -995,6 +995,9 @@ input, select, textarea { font-family: inherit; }
 .quote-fieldset[hidden] { display: none; }
 .quote-field-group { display: flex; flex-direction: column; gap: 0.8rem; }
 .quote-field-group > label {
+  display: flex;
+  align-items: baseline;
+  gap: 0.5rem;
   font-size: 0.75rem;
   letter-spacing: 0.06em;
   text-transform: uppercase;
@@ -1002,6 +1005,14 @@ input, select, textarea { font-family: inherit; }
   font-weight: 600;
 }
 .req { color: var(--coral); }
+.field-hint {
+  text-transform: none;
+  letter-spacing: normal;
+  font-weight: 400;
+  font-size: 0.68rem;
+  color: var(--muted);
+  opacity: 0.7;
+}
 
 .quote-cards {
   display: grid;

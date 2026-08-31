@@ -29,9 +29,12 @@ $labels = [
     'indecis' => 'Ne sait pas encore',
     '24-7' => '24h/24', 'heures' => "Heures d'ouverture", 'adefinir' => 'À définir',
 ];
+// distributeur can hold several comma-separated values (multi-select cards).
 function label($labels, $key, $entry) {
     $v = $entry[$key] ?? '';
-    return $labels[$v] ?? $v;
+    if ($v === '') return $v;
+    $parts = array_map(function ($p) use ($labels) { return $labels[$p] ?? $p; }, explode(',', $v));
+    return implode(', ', $parts);
 }
 
 $loggedIn = !empty($_SESSION['devis_admin']);

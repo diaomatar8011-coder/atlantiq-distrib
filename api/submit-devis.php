@@ -104,8 +104,13 @@ $labels = [
     'indecis' => 'Ne sait pas encore',
     '24-7' => '24h/24', 'heures' => 'Heures d\'ouverture', 'adefinir' => 'À définir',
 ];
+// Some fields (e.g. distributeur) can hold several comma-separated values now
+// that the "type de distributeur" cards allow multiple selections.
 $label = function ($key) use ($labels, $entry) {
-    return $labels[$entry[$key]] ?? $entry[$key];
+    $raw = $entry[$key];
+    if ($raw === '') return $raw;
+    $parts = array_map(function ($p) use ($labels) { return $labels[$p] ?? $p; }, explode(',', $raw));
+    return implode(', ', $parts);
 };
 
 $body = "Nouvelle demande de devis reçue via atlantiq-distrib.fr\n";

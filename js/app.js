@@ -565,21 +565,36 @@ if (form) {
   const progressBar = document.getElementById("quote-progress-bar");
   let currentStep = 1;
 
-  // Single-select card groups (type d'établissement, type de distributeur): clicking a
-  // card selects it, deselects its siblings, and stores the choice in a hidden input so
-  // it submits like a normal form field.
+  // Card groups store their choice in a hidden input so it submits like a normal form
+  // field. Type d'établissement stays single-select. Type de distributeur allows several
+  // choices (data-multi="true"), except its "Je ne sais pas encore" card (data-exclusive),
+  // which clears/is cleared by the others since it doesn't make sense combined with them.
   form.querySelectorAll(".quote-cards").forEach((group) => {
     const name = group.dataset.name;
+    const isMulti = group.dataset.multi === "true";
     const hidden = document.createElement("input");
     hidden.type = "hidden";
     hidden.name = name;
     group.appendChild(hidden);
 
+    const syncHidden = () => {
+      const values = Array.from(group.querySelectorAll(".quote-card.selected")).map((c) => c.dataset.value);
+      hidden.value = values.join(",");
+    };
+
     group.querySelectorAll(".quote-card").forEach((card) => {
       card.addEventListener("click", () => {
-        group.querySelectorAll(".quote-card").forEach((c) => c.classList.remove("selected"));
-        card.classList.add("selected");
-        hidden.value = card.dataset.value;
+        if (!isMulti) {
+          group.querySelectorAll(".quote-card").forEach((c) => c.classList.remove("selected"));
+          card.classList.add("selected");
+        } else if (card.dataset.exclusive === "true") {
+          group.querySelectorAll(".quote-card").forEach((c) => c.classList.remove("selected"));
+          card.classList.add("selected");
+        } else {
+          group.querySelectorAll('.quote-card[data-exclusive="true"]').forEach((c) => c.classList.remove("selected"));
+          card.classList.toggle("selected");
+        }
+        syncHidden();
       });
     });
   });

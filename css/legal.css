@@ -1,0 +1,144 @@
+/* ============================================================
+   Legal pages (Mentions légales / Confidentialité / Cookies)
+   Lightweight, non-scroll-driven pages sharing the site's tokens.
+   ============================================================ */
+
+.legal-header {
+  border-bottom: 1px solid rgba(10, 24, 48, 0.08);
+  background: var(--paper);
+}
+.legal-header-inner {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 1.4rem clamp(1.25rem, 4vw, 2rem);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+.legal-header .logo { color: var(--ink); }
+.legal-header .logo-mark { width: 30px; height: 30px; }
+.legal-back {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--ink-soft);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  transition: color 0.25s ease;
+}
+.legal-back:hover { color: var(--coral); }
+
+.legal-main {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: clamp(2.5rem, 6vw, 4.5rem) clamp(1.25rem, 4vw, 2rem) clamp(4rem, 8vw, 6rem);
+}
+.legal-eyebrow {
+  display: inline-block;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--coral);
+  margin-bottom: 0.9rem;
+}
+.legal-main h1 {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: clamp(2rem, 4vw, 2.6rem);
+  color: var(--ink);
+  line-height: 1.15;
+}
+.legal-updated {
+  margin-top: 0.8rem;
+  font-size: 0.82rem;
+  color: var(--muted);
+}
+.legal-intro {
+  margin-top: 1.6rem;
+  font-size: 1.02rem;
+  line-height: 1.7;
+  color: var(--ink-soft);
+}
+
+.legal-content { margin-top: 2.6rem; }
+.legal-content section { margin-bottom: 2.4rem; }
+.legal-content h2 {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: 1.3rem;
+  color: var(--ink);
+  margin-bottom: 0.8rem;
+  padding-bottom: 0.6rem;
+  border-bottom: 1px solid rgba(10, 24, 48, 0.1);
+}
+.legal-content h3 {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--ink);
+  margin: 1.1rem 0 0.5rem;
+}
+.legal-content p {
+  font-size: 0.94rem;
+  line-height: 1.75;
+  color: var(--ink-soft);
+  margin-bottom: 0.8rem;
+}
+.legal-content ul {
+  margin: 0.6rem 0 0.9rem 1.2rem;
+  padding: 0;
+}
+.legal-content li {
+  font-size: 0.94rem;
+  line-height: 1.7;
+  color: var(--ink-soft);
+  margin-bottom: 0.4rem;
+}
+.legal-content a { color: var(--coral); text-decoration: underline; text-underline-offset: 2px; }
+.legal-content strong { color: var(--ink); }
+
+.legal-placeholder {
+  background: rgba(255, 107, 71, 0.08);
+  border: 1px dashed var(--coral-dim);
+  border-radius: 8px;
+  padding: 0.9rem 1.1rem;
+  font-size: 0.85rem;
+  color: var(--ink);
+  margin-bottom: 0.8rem;
+}
+.legal-placeholder strong { color: var(--coral-dim); }
+
+.legal-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 0.8rem 0 1.2rem;
+  font-size: 0.88rem;
+}
+.legal-table th, .legal-table td {
+  text-align: left;
+  padding: 0.6rem 0.8rem;
+  border-bottom: 1px solid rgba(10, 24, 48, 0.08);
+  color: var(--ink-soft);
+  vertical-align: top;
+}
+.legal-table th {
+  color: var(--ink);
+  font-size: 0.75rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+@media (max-width: 640px) {
+  .legal-table { display: block; overflow-x: auto; }
+}
+
+/* Legal pages' footer drops the "Suivez-nous" column, so it needs one
+   fewer track than the main site's 5-column footer grid. */
+.footer-top.footer-top-4col { grid-template-columns: 1.6fr 1fr 1fr 1fr; }
+@media (max-width: 1024px) {
+  .footer-top.footer-top-4col { grid-template-columns: 1fr 1fr 1fr; }
+}
+@media (max-width: 768px) {
+  .footer-top.footer-top-4col { grid-template-columns: 1fr 1fr; }
+}
