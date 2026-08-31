@@ -311,36 +311,6 @@ initDarkOverlay(document.getElementById("dark-overlay-soft"), 0.21, 0.34, 1);
 initDarkOverlay(document.getElementById("dark-overlay-soft-2"), 0.55, 0.68, 1);
 
 /* ============================================================
-   Marquee
-   ============================================================ */
-document.querySelectorAll(".marquee-wrap").forEach((el) => {
-  const marqueeText = el.querySelector(".marquee-text");
-  gsap.set(marqueeText, { xPercent: 0 });
-  gsap.to(marqueeText, {
-    xPercent: -50,
-    ease: "none",
-    duration: 16,
-    repeat: -1
-  });
-
-  ScrollTrigger.create({
-    trigger: "#scroll-container",
-    start: "top top",
-    end: "bottom bottom",
-    scrub: true,
-    onUpdate: (self) => {
-      const p = self.progress;
-      const enter = 0.175, peak1 = 0.183, peak2 = 0.192, leave = 0.20;
-      let o = 0;
-      if (p >= enter && p < peak1) o = (p - enter) / (peak1 - enter);
-      else if (p >= peak1 && p <= peak2) o = 1;
-      else if (p > peak2 && p <= leave) o = 1 - (p - peak2) / (leave - peak2);
-      el.style.opacity = Math.max(0, Math.min(1, o));
-    }
-  });
-});
-
-/* ============================================================
    Section reveal choreography
    ============================================================ */
 const CONTAINER_VH = 1300; // must match #scroll-container height in CSS

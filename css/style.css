@@ -503,28 +503,6 @@ input, select, textarea { font-family: inherit; }
   pointer-events: none;
 }
 
-.marquee-wrap {
-  position: fixed;
-  top: 50%;
-  left: 0;
-  width: 100%;
-  z-index: 3;
-  transform: translateY(-50%);
-  overflow: hidden;
-  pointer-events: none;
-  opacity: 0;
-}
-.marquee-text {
-  font-family: var(--font-display);
-  font-style: italic;
-  font-weight: 400;
-  font-size: 11vw;
-  white-space: nowrap;
-  color: rgba(250, 248, 244, 0.9);
-  letter-spacing: -0.01em;
-  mix-blend-mode: difference;
-}
-
 /* ============================================================
    Scroll container + sections
    ============================================================ */
@@ -1318,7 +1296,6 @@ input, select, textarea { font-family: inherit; }
   .lineup-grid { grid-template-columns: 1fr; }
   .lineup-grid .lineup-card:last-child { grid-column: auto; max-width: 100%; }
   .form-row { grid-template-columns: 1fr; }
-  .marquee-text { font-size: 16vw; }
   .hero-heading { font-size: clamp(2.4rem, 11vw, 3.4rem); }
   .section-cta .section-inner { padding: 2.2rem 1.4rem; }
 
