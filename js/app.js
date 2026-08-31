@@ -360,8 +360,27 @@ function setupSectionAnimation(section) {
     // by top-of-section at "enter + FADE_IN" instead: that's the point it has
     // just finished fading in, so it lands fully opaque AND at the top of the
     // viewport, then the rest scrolls past normally, top to bottom.
-    section.style.top = `calc(${progressToTopPercent(enter + FADE_IN, 0)}% + ${HEADER_CLEARANCE}px)`;
+    const topProgress = enter + FADE_IN;
+    section.style.top = `calc(${progressToTopPercent(topProgress, 0)}% + ${HEADER_CLEARANCE}px)`;
     section.style.transform = "translateY(0)";
+
+    // The hand-tuned data-leave values were set with desktop's compact multi-column
+    // layouts in mind. Stacked mobile content (e.g. a 3-card grid collapsing into 3
+    // full-width cards) can need much more scroll distance to fully reveal than that
+    // window allows — the fade-out would then start while the bottom of the section
+    // (its last card, say) is still on screen, making it flash past unread. Extend
+    // leave to cover the section's real rendered height, capped just short of the
+    // next section's own entrance so the two are never both visible at once.
+    const container = section.parentElement;
+    const scrollableRange = container.offsetHeight - window.innerHeight;
+    if (scrollableRange > 0) {
+      const neededLeave = topProgress + section.offsetHeight / scrollableRange + FADE_OUT;
+      const next = section.nextElementSibling;
+      const nextEnter = next && next.classList.contains("scroll-section")
+        ? parseFloat(next.dataset.enter) / 100
+        : 1;
+      leave = Math.min(Math.max(leave, neededLeave), nextEnter - 0.005);
+    }
   } else {
     section.style.top = `calc(${progressToTopPercent((enter + leave) / 2, 0.5)}% + 24px)`;
   }
