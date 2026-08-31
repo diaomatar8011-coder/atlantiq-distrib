@@ -440,7 +440,12 @@ input, select, textarea { font-family: inherit; }
   font-size: 0.88rem;
   font-weight: 600;
   letter-spacing: 0.01em;
-  transition: transform 0.35s var(--ease-premium), background 0.35s ease, color 0.35s ease, border-color 0.35s ease;
+  /* transform is deliberately excluded: GSAP's scroll-driven entrance animation also
+     sets transform on every .btn (it's part of the stagger-reveal target list), and a
+     CSS transition on that same property fights it — every scrubbed scroll update
+     restarts a 0.35s tween toward the new value, which never catches up and renders
+     as a lagging "ghost" copy of the button trailing its real position. */
+  transition: background 0.35s ease, color 0.35s ease, border-color 0.35s ease;
 }
 .btn-primary {
   background: var(--coral);
@@ -1048,7 +1053,7 @@ input, select, textarea { font-family: inherit; }
 /* All three steps share one min-height so the panel doesn't resize as you move
    between them, and the nav row's auto margins center it in whatever leftover
    space that leaves, instead of it sitting flush under the last field. */
-.quote-fieldset { min-height: 32rem; }
+.quote-fieldset { min-height: 28rem; }
 .quote-nav-buttons {
   display: flex;
   justify-content: space-between;
