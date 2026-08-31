@@ -910,7 +910,6 @@ input, select, textarea { font-family: inherit; }
 .quote-header { max-width: 560px; margin: 0 auto; text-align: center; }
 .quote-header .section-heading { font-size: clamp(1.7rem, 3vw, 2.2rem); margin-bottom: 1rem; }
 .quote-header .section-body { font-size: 0.95rem; }
-.quote-header .cta-direct-contact { justify-content: center; margin-top: 1.2rem; }
 
 .quote-layout {
   margin-top: 2rem;
@@ -1137,23 +1136,6 @@ input, select, textarea { font-family: inherit; }
 .quote-visual-badges > div { display: flex; align-items: center; gap: 0.5rem; }
 .quote-visual-badges svg { width: 1.1rem; height: 1.1rem; color: var(--coral-light); flex-shrink: 0; }
 .quote-visual-badges span { font-size: 0.72rem; color: var(--muted-on-dark); }
-.cta-direct-contact {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1.6rem;
-  margin-top: 1.8rem;
-}
-.cta-direct-contact a {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.55rem;
-  font-size: 0.92rem;
-  font-weight: 600;
-  color: var(--ink);
-  transition: color 0.3s ease;
-}
-.cta-direct-contact a:hover { color: var(--coral-dim); }
-.cta-direct-contact svg { width: 1.15rem; height: 1.15rem; color: var(--coral); flex-shrink: 0; }
 .contact-form { margin-top: 2.4rem; text-align: left; display: flex; flex-direction: column; gap: 1.2rem; }
 .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem; }
 .form-field { display: flex; flex-direction: column; gap: 0.5rem; }
