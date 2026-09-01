@@ -120,6 +120,13 @@ function openMobileNav() {
   navMobile.classList.add("open");
   navBackdrop.classList.add("open");
   navMobile.setAttribute("aria-hidden", "false");
+  // The fixed header sits above the mobile panel in z-index (so the burger, which
+  // toggles to a close "X", stays clickable through it). At the top of the page
+  // the header's own <nav> — its now-taller unscrolled brand row included — spans
+  // an invisible area that would otherwise sit on top of the first couple of menu
+  // items and silently swallow taps meant for them. Disable pointer-events on
+  // everything in the header except the burger itself while the panel is open.
+  header.classList.add("mobile-nav-open");
   document.body.style.overflow = "hidden";
   gsap.fromTo(
     navMobileItems,
@@ -133,6 +140,7 @@ function closeMobileNav() {
   navMobile.classList.remove("open");
   navBackdrop.classList.remove("open");
   navMobile.setAttribute("aria-hidden", "true");
+  header.classList.remove("mobile-nav-open");
   document.body.style.overflow = "";
   gsap.set(navMobileItems, { opacity: 0, x: 24 });
 }

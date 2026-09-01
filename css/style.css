@@ -145,6 +145,17 @@ input, select, textarea { font-family: inherit; }
 }
 .site-header nav .logo { display: none; }
 .site-header.scrolled nav .logo { display: flex; }
+/* See openMobileNav() in app.js: the header stays visually above the mobile
+   panel (so the burger-turned-close-button remains reachable), but that means
+   its own <nav> — an invisible area when unscrolled, taller now that it
+   includes the brand row — would otherwise intercept taps meant for the menu
+   items underneath it. */
+.site-header.mobile-nav-open {
+  pointer-events: none;
+}
+.site-header.mobile-nav-open .nav-burger {
+  pointer-events: auto;
+}
 .site-header nav {
   display: flex;
   align-items: center;
