@@ -119,7 +119,8 @@ input, select, textarea { font-family: inherit; }
     margin-bottom 0.4s var(--ease-premium), padding-bottom 0.4s var(--ease-premium),
     border-color 0.4s ease;
 }
-.site-header.scrolled .header-brand-row {
+.site-header.scrolled .header-brand-row,
+.site-header.mobile-nav-open .header-brand-row {
   max-height: 0;
   opacity: 0;
   margin-bottom: 0;
@@ -144,7 +145,8 @@ input, select, textarea { font-family: inherit; }
   color: var(--muted-on-dark);
 }
 .site-header nav .logo { display: none; }
-.site-header.scrolled nav .logo { display: flex; }
+.site-header.scrolled nav .logo,
+.site-header.mobile-nav-open nav .logo { display: flex; }
 /* See openMobileNav() in app.js: the header stays visually above the mobile
    panel (so the burger-turned-close-button remains reachable), but that means
    its own <nav> — an invisible area when unscrolled, taller now that it
