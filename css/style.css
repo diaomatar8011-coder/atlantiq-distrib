@@ -119,14 +119,21 @@ input, select, textarea { font-family: inherit; }
     margin-bottom 0.4s var(--ease-premium), padding-bottom 0.4s var(--ease-premium),
     border-color 0.4s ease;
 }
-.site-header.scrolled .header-brand-row,
-.site-header.mobile-nav-open .header-brand-row {
+.site-header.scrolled .header-brand-row {
   max-height: 0;
   opacity: 0;
   margin-bottom: 0;
   padding-bottom: 0;
   border-color: transparent;
   pointer-events: none;
+}
+/* Hard-hidden (not animated like the scrolled state above): opening the
+   mobile panel is already an instant visual switch, and relying on the
+   max-height/overflow collapse here left a brief/inconsistent moment on
+   some mobile browsers where the brand row was still (partly) laid out,
+   overlapping the first menu item underneath it. */
+.site-header.mobile-nav-open .header-brand-row {
+  display: none;
 }
 .header-brand { display: flex; align-items: center; }
 .header-brand-img { height: 78px; width: auto; display: block; }
