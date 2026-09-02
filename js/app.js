@@ -324,7 +324,7 @@ initDarkOverlay(document.getElementById("dark-overlay-soft-2"), 0.55, 0.68, 1);
 const CONTAINER_VH = 1300; // must match #scroll-container height in CSS
 const FADE_IN = 0.02;
 const FADE_OUT = 0.02;
-const HEADER_CLEARANCE = 90; // clears the fixed header in both its scrolled/unscrolled heights
+const HEADER_CLEARANCE = 108; // clears the fixed header in both its scrolled/unscrolled heights
 
 // ScrollTrigger's progress (0-1) spans scrollY range [containerTop, containerTop + H - V],
 // while CSS `top:%` is relative to the full container height H. Since GSAP's "end: bottom bottom"
