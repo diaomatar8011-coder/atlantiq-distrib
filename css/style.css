@@ -129,7 +129,7 @@ input, select, textarea { font-family: inherit; }
   pointer-events: none;
 }
 .header-brand { display: flex; align-items: center; }
-.header-brand-img { height: 62px; width: auto; display: block; }
+.header-brand-img { height: 78px; width: auto; display: block; }
 .site-header nav .logo { display: none; }
 .site-header.scrolled nav .logo,
 .site-header.mobile-nav-open nav .logo { display: flex; }
