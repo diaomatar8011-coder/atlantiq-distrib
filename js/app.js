@@ -13,7 +13,7 @@ gsap.ticker.add((time) => lenis.raf(time * 1000));
 gsap.ticker.lagSmoothing(0);
 
 /* ============================================================
-   Loader — preloads distri.mp4 fully into memory as a Blob.
+   Loader — preloads distrib.mp4 fully into memory as a Blob.
    Video-scrub (canvas seeking) needs random access into the file via
    HTTP Range requests, which GitHub Pages' CDN does not support (it
    always returns a full 200 response, never 206 Partial Content).
@@ -64,7 +64,7 @@ setTimeout(() => {
   if (!videoLoadSettled) { videoLoadSettled = true; finishLoading(); }
 }, 15000); // safety fallback if the fetch stalls on a very slow connection
 
-fetch("distri.mp4")
+fetch("distrib.mp4?v=20260903-4")
   .then((response) => {
     const total = parseInt(response.headers.get("Content-Length") || "0", 10);
     if (!response.body || !total) {
@@ -93,7 +93,7 @@ fetch("distri.mp4")
     finishLoading();
   })
   .catch(() => {
-    // Network/CORS failure: keep the original <source src="distri.mp4"> already in the
+    // Network/CORS failure: keep the original <source src="distrib.mp4"> already in the
     // markup as a plain-playback fallback (scrubbing just won't be available).
     if (videoLoadSettled) return;
     videoLoadSettled = true;
