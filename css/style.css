@@ -167,7 +167,7 @@ input, select, textarea { font-family: inherit; }
   letter-spacing: 0.03em;
   text-transform: uppercase;
 }
-.logo-apostrophe { color: var(--coral); }
+.logo-apostrophe, .logo-d { color: var(--coral); }
 .nav-links {
   display: flex;
   gap: 1.7rem;
