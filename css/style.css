@@ -332,8 +332,10 @@ input, select, textarea { font-family: inherit; }
   display: flex;
   flex-direction: column;
   gap: 0.3rem;
-  max-height: 60vh;
-  overflow-y: auto;
+  /* No max-height/overflow of its own: nesting a second scroll container
+     inside .nav-mobile's (which scrolls the whole panel) made touch-scrolling
+     unreliable and could strand the CTA/contact/social rows below it out of
+     reach. The whole panel scrolls as one piece instead. */
 }
 .nav-mobile-item {
   opacity: 0;

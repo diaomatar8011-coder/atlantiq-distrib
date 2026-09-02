@@ -160,6 +160,14 @@ navMobile.querySelectorAll(".nav-mobile-chevron").forEach((btn) => {
     const isOpen = btn.getAttribute("aria-expanded") === "true";
     btn.setAttribute("aria-expanded", String(!isOpen));
     submenu.classList.toggle("open", !isOpen);
+    if (!isOpen) {
+      // Wait for the grid-template-rows expand transition (0.4s) to finish
+      // so the submenu's final height is what gets scrolled into view,
+      // instead of scrolling to where it'll be mid-animation.
+      setTimeout(() => {
+        submenu.scrollIntoView({ behavior: "smooth", block: "nearest" });
+      }, 420);
+    }
   });
 });
 
