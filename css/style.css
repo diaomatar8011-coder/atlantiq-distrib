@@ -138,8 +138,12 @@ input, select, textarea { font-family: inherit; }
 .header-brand { display: flex; align-items: center; }
 .header-brand-img { height: 78px; width: auto; display: block; }
 .site-header nav .logo { display: none; }
-.site-header.scrolled nav .logo,
-.site-header.mobile-nav-open nav .logo { display: flex; }
+.site-header.scrolled nav .logo { display: flex; }
+/* While the mobile panel is open, show nothing in the header but the
+   close (X) button — no logo at all, so there is nothing left in the
+   header that could ever visually land behind/overlap the panel's
+   content, regardless of viewport-height quirks on any given browser. */
+.site-header.mobile-nav-open nav .logo { display: none; }
 /* See openMobileNav() in app.js: the header stays visually above the mobile
    panel (so the burger-turned-close-button remains reachable), but that means
    its own <nav> — an invisible area when unscrolled, taller now that it
@@ -308,9 +312,17 @@ input, select, textarea { font-family: inherit; }
   z-index: 490;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  /* Top-anchored, not centered: centering shifted the whole column (and
+     therefore where the first item landed) whenever a submenu expanded
+     changed its total height — on iOS Safari in particular, where 100vh-based
+     sizing is notoriously inconsistent with the real visible viewport, this
+     could land the first item behind the header. A fixed top anchor never
+     moves regardless of how tall the expanded content gets; overflow-y
+     handles the rare case where it doesn't fit. */
+  justify-content: flex-start;
+  overflow-y: auto;
   gap: 2.4rem;
-  padding: 2.5rem clamp(2rem, 8vw, 3rem);
+  padding: 6.5rem clamp(2rem, 8vw, 3rem) 2.5rem;
   box-shadow: -30px 0 70px rgba(0, 0, 0, 0.35);
   transform: translateX(100%);
   transition: transform 0.55s var(--ease-premium);
