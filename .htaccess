@@ -1,0 +1,34 @@
+# Root cause of the recurring "still see the old version" issue: Hostinger's
+# default caching applied a long max-age to EVERY file, including the HTML
+# pages themselves. That meant browsers (and Hostinger's own hcdn edge cache)
+# kept serving a stale index.html that still pointed at old CSS/JS/image
+# versions, even after those underlying files were updated and correctly
+# cache-busted with a ?v= query string.
+#
+# Fix: HTML documents must always be revalidated (so every visit picks up the
+# latest deploy immediately), while the versioned static assets they
+# reference can be cached aggressively — a new ?v= value already gives them a
+# brand new URL whenever their content changes, so a long cache lifetime on
+# the OLD url is perfectly safe.
+
+<IfModule mod_headers.c>
+  <FilesMatch "\.(html|htm)$">
+    Header set Cache-Control "no-cache, must-revalidate"
+  </FilesMatch>
+  <FilesMatch "\.(css|js|png|jpg|jpeg|gif|webp|svg|ico|mp4|webm|woff|woff2|ttf)$">
+    Header set Cache-Control "public, max-age=31536000, immutable"
+  </FilesMatch>
+</IfModule>
+
+<IfModule mod_expires.c>
+  ExpiresActive On
+  ExpiresByType text/html "access plus 0 seconds"
+  ExpiresByType text/css "access plus 1 year"
+  ExpiresByType application/javascript "access plus 1 year"
+  ExpiresByType image/png "access plus 1 year"
+  ExpiresByType image/jpeg "access plus 1 year"
+  ExpiresByType image/webp "access plus 1 year"
+  ExpiresByType image/svg+xml "access plus 1 year"
+  ExpiresByType video/mp4 "access plus 1 year"
+  ExpiresByType font/woff2 "access plus 1 year"
+</IfModule>
