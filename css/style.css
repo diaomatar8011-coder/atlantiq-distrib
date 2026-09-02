@@ -1235,7 +1235,7 @@ input, select, textarea { font-family: inherit; }
   text-align: left;
 }
 
-.footer-brand-img { height: 36px; width: auto; display: block; margin-bottom: 0.9rem; }
+.footer-brand-img { height: 58px; width: auto; display: block; margin-bottom: 0.9rem; }
 .footer-tagline { color: var(--muted-on-dark); font-size: 0.9rem; max-width: 20rem; }
 
 .footer-col h4 {
