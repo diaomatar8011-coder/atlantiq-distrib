@@ -63,7 +63,7 @@ input, select, textarea { font-family: inherit; }
 }
 #loader.loader-hidden { opacity: 0; visibility: hidden; pointer-events: none; }
 .loader-mark { width: 64px; height: 64px; display: flex; }
-.loader-mark svg { width: 100%; height: 100%; }
+.loader-mark svg, .loader-mark img { width: 100%; height: 100%; object-fit: contain; }
 #loader-bar-track {
   width: 220px;
   height: 1px;
@@ -128,22 +128,8 @@ input, select, textarea { font-family: inherit; }
   border-color: transparent;
   pointer-events: none;
 }
-.header-brand {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  color: var(--text-on-dark);
-}
-.header-brand .logo-mark { width: 52px; height: 52px; }
-.header-brand-text { display: flex; flex-direction: column; gap: 0.2rem; }
-.header-brand .logo-word { font-size: 1.6rem; }
-.header-tagline {
-  font-family: var(--font-body);
-  font-size: 0.85rem;
-  font-weight: 400;
-  letter-spacing: 0.01em;
-  color: var(--muted-on-dark);
-}
+.header-brand { display: flex; align-items: center; }
+.header-brand-img { height: 62px; width: auto; display: block; }
 .site-header nav .logo { display: none; }
 .site-header.scrolled nav .logo,
 .site-header.mobile-nav-open nav .logo { display: flex; }
@@ -172,7 +158,8 @@ input, select, textarea { font-family: inherit; }
   color: var(--text-on-dark);
 }
 .logo-mark { width: 44px; height: 44px; display: flex; }
-.logo-mark svg { width: 100%; height: 100%; }
+.logo-mark svg, .logo-mark img { width: 100%; height: 100%; object-fit: contain; }
+.logo-img { height: 40px; width: auto; display: block; }
 .logo-word {
   font-family: var(--font-display);
   font-size: 1.35rem;
@@ -1248,15 +1235,7 @@ input, select, textarea { font-family: inherit; }
   text-align: left;
 }
 
-.footer-brand {
-  font-family: var(--font-display);
-  font-size: 1.6rem;
-  font-weight: 600;
-  letter-spacing: 0.03em;
-  text-transform: uppercase;
-  color: var(--text-on-dark);
-  margin-bottom: 0.7rem;
-}
+.footer-brand-img { height: 36px; width: auto; display: block; margin-bottom: 0.9rem; }
 .footer-tagline { color: var(--muted-on-dark); font-size: 0.9rem; max-width: 20rem; }
 
 .footer-col h4 {
