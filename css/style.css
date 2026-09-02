@@ -109,7 +109,7 @@ input, select, textarea { font-family: inherit; }
 .header-brand-row {
   display: flex;
   justify-content: center;
-  max-height: 100px;
+  max-height: 130px;
   opacity: 1;
   overflow: hidden;
   margin-bottom: 1.3rem;
