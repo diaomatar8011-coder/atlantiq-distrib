@@ -497,7 +497,9 @@ input, select, textarea { font-family: inherit; }
 }
 .hero-actions .btn {
   justify-content: center;
-  min-width: 13.5rem;
+  min-width: 10.2rem;
+  padding: 0.65rem 1.4rem;
+  font-size: 0.8rem;
 }
 .btn {
   display: inline-flex;
