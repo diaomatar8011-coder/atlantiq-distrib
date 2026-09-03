@@ -48,7 +48,7 @@ $loggedIn = !empty($_SESSION['devis_admin']);
 <title>Demandes de devis — Atlantiq'Distrib</title>
 <style>
   :root {
-    --navy-950: #060f20; --navy-900: #0a1830; --coral: #ff6b47; --coral-dim: #d9563a;
+    --navy-950: #060f20; --navy-900: #0a1830; --coral: #fd5c35; --coral-dim: #d44c2b;
     --paper: #faf8f4; --paper-dim: #f1ede5; --ink: #0a1830; --ink-soft: #4a5568; --muted: #8891a3;
   }
   * { box-sizing: border-box; }
