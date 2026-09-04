@@ -109,7 +109,7 @@ input, select, textarea { font-family: inherit; }
 .header-brand-row {
   display: flex;
   justify-content: center;
-  max-height: 130px;
+  max-height: 155px;
   opacity: 1;
   overflow: hidden;
   margin-bottom: 1.3rem;
@@ -136,7 +136,7 @@ input, select, textarea { font-family: inherit; }
   display: none;
 }
 .header-brand { display: flex; align-items: center; }
-.header-brand-img { height: 78px; width: auto; display: block; }
+.header-brand-img { height: 104px; width: auto; display: block; }
 .site-header nav .logo { display: none; }
 .site-header.scrolled nav .logo { display: flex; }
 /* While the mobile panel is open, show nothing in the header but the
