@@ -261,25 +261,25 @@ input, select, textarea { font-family: inherit; }
   font-weight: 600;
   color: var(--navy-950);
   background:
-    radial-gradient(ellipse 90% 65% at 24% 0%, rgba(255, 255, 255, 0.45) 0%, rgba(255, 255, 255, 0) 55%),
-    linear-gradient(180deg, rgba(var(--coral-light-rgb), 0.6) 0%, rgba(var(--coral-rgb), 0.6) 48%, rgba(var(--coral-dim-rgb), 0.6) 100%);
+    radial-gradient(ellipse 90% 65% at 24% 0%, rgba(255, 255, 255, 0.35) 0%, rgba(255, 255, 255, 0) 55%),
+    linear-gradient(180deg, rgba(var(--coral-light-rgb), 0.28) 0%, rgba(var(--coral-rgb), 0.28) 48%, rgba(var(--coral-dim-rgb), 0.28) 100%);
   padding: 0.65rem 1.4rem;
   border-radius: 100px;
-  border: 1px solid rgba(0, 0, 0, 0.22);
-  border-bottom-color: rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  border-bottom-color: rgba(0, 0, 0, 0.25);
   letter-spacing: 0.01em;
   box-shadow:
-    inset 0 1.5px 0 rgba(255, 255, 255, 0.75),
-    inset 0 -5px 7px -2px rgba(0, 0, 0, 0.35),
-    0 4px 0 -1px rgba(0, 0, 0, 0.18),
-    0 8px 16px -4px rgba(0, 0, 0, 0.5);
+    inset 0 1.5px 0 rgba(255, 255, 255, 0.55),
+    inset 0 -5px 7px -2px rgba(0, 0, 0, 0.22),
+    0 4px 0 -1px rgba(0, 0, 0, 0.12),
+    0 8px 16px -4px rgba(0, 0, 0, 0.35);
   transition: background 0.3s ease, transform 0.3s var(--ease-premium);
   white-space: nowrap;
 }
 .nav-cta:hover {
   background:
-    radial-gradient(ellipse 90% 65% at 24% 0%, rgba(255, 255, 255, 0.55) 0%, rgba(255, 255, 255, 0) 55%),
-    linear-gradient(180deg, rgba(var(--coral-light-rgb), 0.65) 0%, rgba(var(--coral-light-rgb), 0.65) 48%, rgba(var(--coral-rgb), 0.65) 100%);
+    radial-gradient(ellipse 90% 65% at 24% 0%, rgba(255, 255, 255, 0.45) 0%, rgba(255, 255, 255, 0) 55%),
+    linear-gradient(180deg, rgba(var(--coral-light-rgb), 0.35) 0%, rgba(var(--coral-light-rgb), 0.35) 48%, rgba(var(--coral-rgb), 0.35) 100%);
   transform: translateY(-1px);
 }
 .nav-burger {
@@ -542,21 +542,21 @@ input, select, textarea { font-family: inherit; }
    text by spec, so no pseudo-element/stacking tricks are needed. */
 .btn-primary {
   background:
-    radial-gradient(ellipse 90% 65% at 24% 0%, rgba(255, 255, 255, 0.45) 0%, rgba(255, 255, 255, 0) 55%),
-    linear-gradient(180deg, rgba(var(--coral-light-rgb), 0.6) 0%, rgba(var(--coral-rgb), 0.6) 48%, rgba(var(--coral-dim-rgb), 0.6) 100%);
+    radial-gradient(ellipse 90% 65% at 24% 0%, rgba(255, 255, 255, 0.35) 0%, rgba(255, 255, 255, 0) 55%),
+    linear-gradient(180deg, rgba(var(--coral-light-rgb), 0.28) 0%, rgba(var(--coral-rgb), 0.28) 48%, rgba(var(--coral-dim-rgb), 0.28) 100%);
   color: var(--navy-950);
-  border: 1px solid rgba(0, 0, 0, 0.22);
-  border-bottom-color: rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  border-bottom-color: rgba(0, 0, 0, 0.25);
   box-shadow:
-    inset 0 1.5px 0 rgba(255, 255, 255, 0.75),
-    inset 0 -5px 7px -2px rgba(0, 0, 0, 0.35),
-    0 5px 0 -1px rgba(0, 0, 0, 0.18),
-    0 10px 20px -4px rgba(0, 0, 0, 0.5);
+    inset 0 1.5px 0 rgba(255, 255, 255, 0.55),
+    inset 0 -5px 7px -2px rgba(0, 0, 0, 0.22),
+    0 5px 0 -1px rgba(0, 0, 0, 0.12),
+    0 10px 20px -4px rgba(0, 0, 0, 0.35);
 }
 .btn-primary:hover {
   background:
-    radial-gradient(ellipse 90% 65% at 24% 0%, rgba(255, 255, 255, 0.55) 0%, rgba(255, 255, 255, 0) 55%),
-    linear-gradient(180deg, rgba(var(--coral-light-rgb), 0.65) 0%, rgba(var(--coral-light-rgb), 0.65) 48%, rgba(var(--coral-rgb), 0.65) 100%);
+    radial-gradient(ellipse 90% 65% at 24% 0%, rgba(255, 255, 255, 0.45) 0%, rgba(255, 255, 255, 0) 55%),
+    linear-gradient(180deg, rgba(var(--coral-light-rgb), 0.35) 0%, rgba(var(--coral-light-rgb), 0.35) 48%, rgba(var(--coral-rgb), 0.35) 100%);
   transform: translateY(-2px);
 }
 .btn-ghost {
