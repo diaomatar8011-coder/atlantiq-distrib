@@ -16,6 +16,9 @@
   --coral: #fd8202;
   --coral-light: #fd9931;
   --coral-dim: #aa6722;
+  --coral-rgb: 253, 130, 2;
+  --coral-light-rgb: 253, 153, 49;
+  --coral-dim-rgb: 170, 103, 34;
   --text-on-dark: #f4f1ea;
 
   --font-display: 'Fraunces', 'Iowan Old Style', serif;
@@ -258,8 +261,8 @@ input, select, textarea { font-family: inherit; }
   font-weight: 600;
   color: var(--navy-950);
   background:
-    radial-gradient(ellipse 90% 65% at 24% 0%, rgba(255, 255, 255, 0.65) 0%, rgba(255, 255, 255, 0) 55%),
-    linear-gradient(180deg, var(--coral-light) 0%, var(--coral) 48%, var(--coral-dim) 100%);
+    radial-gradient(ellipse 90% 65% at 24% 0%, rgba(255, 255, 255, 0.45) 0%, rgba(255, 255, 255, 0) 55%),
+    linear-gradient(180deg, rgba(var(--coral-light-rgb), 0.6) 0%, rgba(var(--coral-rgb), 0.6) 48%, rgba(var(--coral-dim-rgb), 0.6) 100%);
   padding: 0.65rem 1.4rem;
   border-radius: 100px;
   border: 1px solid rgba(0, 0, 0, 0.22);
@@ -275,8 +278,8 @@ input, select, textarea { font-family: inherit; }
 }
 .nav-cta:hover {
   background:
-    radial-gradient(ellipse 90% 65% at 24% 0%, rgba(255, 255, 255, 0.75) 0%, rgba(255, 255, 255, 0) 55%),
-    linear-gradient(180deg, var(--coral-light) 0%, var(--coral-light) 48%, var(--coral) 100%);
+    radial-gradient(ellipse 90% 65% at 24% 0%, rgba(255, 255, 255, 0.55) 0%, rgba(255, 255, 255, 0) 55%),
+    linear-gradient(180deg, rgba(var(--coral-light-rgb), 0.65) 0%, rgba(var(--coral-light-rgb), 0.65) 48%, rgba(var(--coral-rgb), 0.65) 100%);
   transform: translateY(-1px);
 }
 .nav-burger {
@@ -539,8 +542,8 @@ input, select, textarea { font-family: inherit; }
    text by spec, so no pseudo-element/stacking tricks are needed. */
 .btn-primary {
   background:
-    radial-gradient(ellipse 90% 65% at 24% 0%, rgba(255, 255, 255, 0.65) 0%, rgba(255, 255, 255, 0) 55%),
-    linear-gradient(180deg, var(--coral-light) 0%, var(--coral) 48%, var(--coral-dim) 100%);
+    radial-gradient(ellipse 90% 65% at 24% 0%, rgba(255, 255, 255, 0.45) 0%, rgba(255, 255, 255, 0) 55%),
+    linear-gradient(180deg, rgba(var(--coral-light-rgb), 0.6) 0%, rgba(var(--coral-rgb), 0.6) 48%, rgba(var(--coral-dim-rgb), 0.6) 100%);
   color: var(--navy-950);
   border: 1px solid rgba(0, 0, 0, 0.22);
   border-bottom-color: rgba(0, 0, 0, 0.4);
@@ -552,8 +555,8 @@ input, select, textarea { font-family: inherit; }
 }
 .btn-primary:hover {
   background:
-    radial-gradient(ellipse 90% 65% at 24% 0%, rgba(255, 255, 255, 0.75) 0%, rgba(255, 255, 255, 0) 55%),
-    linear-gradient(180deg, var(--coral-light) 0%, var(--coral-light) 48%, var(--coral) 100%);
+    radial-gradient(ellipse 90% 65% at 24% 0%, rgba(255, 255, 255, 0.55) 0%, rgba(255, 255, 255, 0) 55%),
+    linear-gradient(180deg, rgba(var(--coral-light-rgb), 0.65) 0%, rgba(var(--coral-light-rgb), 0.65) 48%, rgba(var(--coral-rgb), 0.65) 100%);
   transform: translateY(-2px);
 }
 .btn-ghost {
